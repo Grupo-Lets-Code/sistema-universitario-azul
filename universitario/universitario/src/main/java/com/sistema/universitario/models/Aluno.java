@@ -1,19 +1,17 @@
 package com.sistema.universitario.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 
 @Entity
-@Table(name = "Aluno")
 public class Aluno {
 
     @Id
@@ -21,27 +19,18 @@ public class Aluno {
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "User_Id", nullable = false)
-    private User user;
+    @JoinColumn(name = "Usuario_id", nullable = false)
+    private Usuario usuario;
 
     @Column (name = "NOME")
+    @NotBlank(message = "Nome não informado")
     private String nome;
 
     @Column (name = "CPF", unique = true)
+    @NotBlank(message = "CPF não informado")
     private String cpf;
 
-    @Column (name = "RUA")
-    private String rua;
-
-    @Column (name = "NUMERO")
-    private String num;
-
-    @Column (name = "BAIRRO")
-    private String bairro;
-
-    @Column (name = "CIDADE")
-    private String cidade;
-
-    @Column (name = "CEP")
-    private String cep;
+    @OneToOne
+    @JoinColumn(name = "Endereco_id", nullable = false)
+    private Endereco endereco;
 }

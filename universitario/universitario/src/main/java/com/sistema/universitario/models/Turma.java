@@ -18,6 +18,8 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String nomeTurma;
+
     @ManyToOne
     @JoinColumn(name = "Aluno_id")
     private Aluno aluno;
@@ -25,4 +27,6 @@ public class Turma {
     @ManyToOne
     @JoinColumn(name = "Disciplina_id")
     private Disciplina disciplina;
+  
+    //Turma OneToMany para alunos
 }

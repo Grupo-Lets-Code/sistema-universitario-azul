@@ -10,12 +10,12 @@ O objetivo deste projeto é a construção de um sistema para universidade. Cont
 
 ## 👨‍💻 Alunos:
 
-- [Anicky Oliveira](https://www.linkedin.com/in/anicky-oliveira-250a75120/)
-- [Enzo Goulart](https://www.linkedin.com/in/enzo-costa-58414620a/)
-- [Hannah Freitas](https://www.linkedin.com/in/hannahcfreitas/)
-- [Kayllane Gomes](https://www.linkedin.com/in/kayllane-gomes/)
-- [Paula Fagundes](https://www.linkedin.com/in/paula-fagundes-669a211a3/)
-- [Rejane Elisa](https://www.linkedin.com/in/rejane-elisa-ims-9063b055/)
+- [Allan Lopreti](https://www.linkedin.com/in/allan-lopreti/)
+- [Allan Felintro](https://www.linkedin.com/in/allanfelintro/)
+- [Caio Paiva](https://www.linkedin.com/in/caio-s-paiva/)
+- [Marcos Nofre](https://www.linkedin.com/in/marcos-nofre-79b29b20a/)
+- [Rafael Dorta](https://www.linkedin.com/in/rafael-alves-dorta-6642b41b9/)
+- [Wendel Henrique](https://www.linkedin.com/in/wendel-henrique-bispo-de-jesus-b940221b7/)
 
 ## 🛠️ Modelagem:
 

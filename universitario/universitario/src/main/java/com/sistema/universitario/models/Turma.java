@@ -18,25 +18,12 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String nomeTurma;
+
     @ManyToOne
     @JoinColumn(name = "aluno_id")
     private Aluno aluno;
 
-    @ManyToOne
-    @JoinColumn(name = "disciplina")
-    private Disciplina disciplina;
-
-    @JsonProperty("aluno_id")
-    private void unpackNestedAluno(Long aluno_id) {
-        this.aluno = new Aluno();
-        aluno.setId(aluno_id);
-    }
-
-    @JsonProperty("disciplina_id")
-    private void unpackNestedDisciplina(Long disciplina_id) {
-        this.disciplina = new Disciplina();
-        disciplina.setId(disciplina_id);
-    }
-
+    //Turma OneToMany para alunos
 
 }

@@ -1,19 +1,19 @@
 package com.sistema.universitario.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+
 @Entity
-@Table(name = "turma")
 public class Turma {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,9 +21,12 @@ public class Turma {
     private String nomeTurma;
 
     @ManyToOne
-    @JoinColumn(name = "aluno_id")
+    @JoinColumn(name = "Aluno_id")
     private Aluno aluno;
 
+    @ManyToOne
+    @JoinColumn(name = "Disciplina_id")
+    private Disciplina disciplina;
+  
     //Turma OneToMany para alunos
-
 }

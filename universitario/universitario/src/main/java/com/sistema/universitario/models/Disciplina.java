@@ -26,5 +26,11 @@ public class Disciplina {
     @OneToMany
     @JoinColumn(name = "professor_id")
     List<Professor> professor;
+
+    //@ManyToMany
     //Relacionamento curso disciplina Curso OneToMany Disciplinas
+    //Delete disciplina idCurso e passar o idDisciplina excluir o relacionameto
+    // Curso table Disciplina e eo relacionamento idCurso e idDisciplina
+    //excluir os elementos da lista pelo save
+    // id curso e id disciplina
 }

@@ -20,9 +20,9 @@ public class Turma {
 
     private String nomeTurma;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "Aluno_id")
-    private Aluno aluno;
+    private List<Aluno> aluno;
 
     @ManyToOne
     @JoinColumn(name = "Disciplina_id")

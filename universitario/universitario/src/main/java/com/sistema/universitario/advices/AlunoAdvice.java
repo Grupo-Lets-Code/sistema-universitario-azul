@@ -1,7 +1,6 @@
-package com.sistema.universitario.advice;
+package com.sistema.universitario.advices;
 
 import com.sistema.universitario.exceptions.AlunoNaoEncontradoException;
-import com.sistema.universitario.exceptions.CursoNaoEncontradoException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +25,15 @@ public class AlunoAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex){
+    public ResponseEntity handleValidationExceptions(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
         ex.getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
-            String errorMessage = ((FieldError) error).getDefaultMessage();
+            String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
         log.error("error message {}", errors);
-        return errors;
+        return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }
 
 }

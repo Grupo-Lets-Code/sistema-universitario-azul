@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,6 +27,10 @@ public class Curso implements Serializable{
     private Turno turno;
 
     @ManyToMany
-    private Set<Disciplina> disciplinas;
+    private List<Disciplina> disciplinas;
 
+    public Curso(String nomeCurso, Turno turno) {
+        this.nomeCurso = nomeCurso;
+        this.turno = turno;
+    }
 }

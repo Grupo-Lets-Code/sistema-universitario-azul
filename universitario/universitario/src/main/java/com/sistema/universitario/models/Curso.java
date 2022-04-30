@@ -1,25 +1,32 @@
 package com.sistema.universitario.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Setter
 @Getter
 @Entity
-public class Curso {
+public class Curso implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //Adicionar o atributo turno e nomeCurso
-    //Relacionamento curso disciplina Curso ManyToMany Disciplinas
-    //Curso OneToMany para turmas
+    @NotBlank(message = "Nome do curso não informado!")
+    @Column(nullable = false)
+    private String nomeCurso;
+    @NotNull(message = "Turno não informado!")
+    @Enumerated(EnumType.STRING)
+    private Turno turno;
 
-
+    @ManyToMany
+    private Set<Disciplina> disciplinas;
 
 }

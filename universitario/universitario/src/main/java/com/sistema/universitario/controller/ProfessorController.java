@@ -1,6 +1,5 @@
 package com.sistema.universitario.controller;
 
-import com.sistema.universitario.models.Disciplina;
 import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.services.ProfessorService;
 import org.springframework.http.HttpStatus;
@@ -48,5 +47,12 @@ public class ProfessorController {
                                                     @PathVariable("idDisciplina") Long idDisciplina) {
         professorService.deleteProfessorDisciplina(idProfessor, idDisciplina);
         return new ResponseEntity("Professor(a) excluído(a) da disciplina com sucesso!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("{idProfessor}/{idTurma}")
+    public ResponseEntity deleteProfessorTurma(@PathVariable("idProfessor") Long idProfessor,
+                                                    @PathVariable("idTurma") Long idTurma) {
+        professorService.deleteProfessorTurma(idProfessor, idTurma);
+        return new ResponseEntity("Professor(a) excluído(a) da turma com sucesso!", HttpStatus.OK);
     }
 }

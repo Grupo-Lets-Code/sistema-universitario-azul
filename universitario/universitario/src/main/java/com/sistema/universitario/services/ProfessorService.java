@@ -1,6 +1,6 @@
 package com.sistema.universitario.services;
 
-import com.sistema.universitario.exceptions.ProfessorNaoEncontradaException;
+import com.sistema.universitario.exceptions.ProfessorNaoEncontradoException;
 import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.repositories.ProfessorRepository;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,14 @@ public class ProfessorService {
         professorRepository.save(professor);
     }
 
+    public void deleteProfessorTurma(Long idProfessor, Long idTurma) {
+        Professor professor = findById(idProfessor);
+    /*    var turma = turmaService.findById(idTurma);
+        professor.getTurma().remove(turma);*/
+        professorRepository.save(professor);
+    }
+
     public Professor findById(Long id) {
-        return this.professorRepository.findById(id).orElseThrow(ProfessorNaoEncontradaException::new);
+        return this.professorRepository.findById(id).orElseThrow(ProfessorNaoEncontradoException::new);
     }
 }

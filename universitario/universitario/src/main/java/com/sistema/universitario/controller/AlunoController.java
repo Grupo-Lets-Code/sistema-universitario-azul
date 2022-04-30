@@ -3,9 +3,11 @@ package com.sistema.universitario.controller;
 import com.sistema.universitario.models.Aluno;
 import com.sistema.universitario.models.Disciplina;
 import com.sistema.universitario.repositories.AlunoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,9 +24,15 @@ public class AlunoController {
         return this.alunoRepository.findAll();
     }
 
+    @GetMapping("/aluno-ativo")
+    public List<Aluno> getAllAlunosAtivos(){
+        return this.alunoRepository.findByAlunosAtivos("ATIVO");
+    }
+
     @PostMapping
-    public Aluno save(@RequestBody Aluno aluno){
-        return this.alunoRepository.save(aluno);
+    public ResponseEntity save(@Valid @RequestBody Aluno aluno){
+        this.alunoRepository.save(aluno);
+        return new ResponseEntity("Aluno criado com sucesso!", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -32,11 +40,11 @@ public class AlunoController {
         return alunoRepository.findById(id)
                 .map(save -> { save.setNome(aluno.getNome());
                     //FIXME CRIAR A CLASSE ENDEREÇO
-                                save.setRua(endereco.getRua());
+                                /*save.setRua(endereco.getRua());
                                 save.setBairro(endereco.getBairro());
                                 save.setCidade(endereco.getCidade());
                                 save.setNum(endereco.getNum());
-                                save.setCep(endereco.getCep());
+                                save.setCep(endereco.getCep());*/
                     Aluno newSave = alunoRepository.save(save);
                     return ResponseEntity.ok().body(newSave);})
                 .orElse(ResponseEntity.notFound().build());

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -33,4 +34,8 @@ public class Aluno {
     @OneToOne
     @JoinColumn(name = "Endereco_id", nullable = false)
     private Endereco endereco;
+
+    @ManyToMany
+    @JoinColumn(name = "Turma_id", nullable = false)
+    private List<Turma> turma;
 }

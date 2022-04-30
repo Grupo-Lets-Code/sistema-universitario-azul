@@ -1,48 +1,44 @@
 package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Disciplina;
-import com.sistema.universitario.repositories.DisciplinaRepository;
+import com.sistema.universitario.services.DisciplinaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/disciplina")
 public class DisciplinaController {
+    private final DisciplinaService disciplinaService;
 
-    private final DisciplinaRepository disciplinaRepository;
-
-    public DisciplinaController(DisciplinaRepository disciplinaRepository) {
-        this.disciplinaRepository = disciplinaRepository;
+    public DisciplinaController(DisciplinaService disciplinaService) {
+        this.disciplinaService = disciplinaService;
     }
 
     @GetMapping
-    public List<Disciplina> getAllDisciplina() {
-        return this.disciplinaRepository.findAll();
+    public List<Disciplina> getAll() {
+        return disciplinaService.findAll();
     }
 
     @PostMapping
-    public Disciplina save(@RequestBody Disciplina disciplina) {
-        return disciplinaRepository.save(disciplina);
+    public ResponseEntity save(@Valid @RequestBody Disciplina disciplina) {
+        this.disciplinaService.save(disciplina);
+        return new ResponseEntity("Disciplina criada com sucesso!", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Disciplina> update(@PathVariable Long id, @RequestBody Disciplina disciplina) {
-        return disciplinaRepository.findById(id)
-                .map(save -> { save.setNome(disciplina.getNome());
-                                Disciplina newSave = disciplinaRepository.save(save);
-                                return ResponseEntity.ok().body(newSave);})
-                .orElse(ResponseEntity.notFound().build());
+    @PutMapping({"id"})
+    public ResponseEntity update(@PathVariable("id") Long idDisciplina,
+                                           @RequestBody Disciplina disciplina) {
+        disciplinaService.update(idDisciplina, disciplina);
+        return new ResponseEntity("Disciplina alterada com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        return disciplinaRepository.findById(id)
-                .map(delete -> {
-                    disciplinaRepository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        disciplinaService.delete(id);
+        return new ResponseEntity("Disciplina excluída com sucesso!", HttpStatus.OK);
     }
-
 }

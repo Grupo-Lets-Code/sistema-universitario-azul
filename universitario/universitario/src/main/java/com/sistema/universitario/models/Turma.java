@@ -1,9 +1,9 @@
 package com.sistema.universitario.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @NoArgsConstructor
@@ -18,15 +18,19 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column (name = "NOME")
+    @NotBlank(message = "Nome não informado")
     private String nomeTurma;
 
-    @OneToMany
-    @JoinColumn(name = "Aluno_id")
+    @ManyToMany
+    @JoinColumn(name = "Professor_id", nullable = false)
+    private List<Professor> professor;
+
+    @ManyToMany
+    @JoinColumn(name = "Aluno_id", nullable = false)
     private List<Aluno> aluno;
 
-    @ManyToOne
-    @JoinColumn(name = "Disciplina_id")
-    private Disciplina disciplina;
-  
-    //Turma OneToMany para alunos
+    @ManyToMany
+    @JoinColumn(name = "Disciplina_id", nullable = false)
+    private List<Disciplina> disciplina;
 }

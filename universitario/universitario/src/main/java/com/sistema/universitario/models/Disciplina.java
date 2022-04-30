@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,9 +24,17 @@ public class Disciplina {
     @NotBlank(message = "Nome não informado")
     private String nome;
 
-    @OneToMany
-    @JoinColumn(name = "professor_id")
-    List<Professor> professor;
+    @ManyToMany
+    @JoinColumn(name = "Professor_id")
+    private List<Professor> professor = new ArrayList();
+
+    @ManyToMany
+    @JoinColumn(name = "Turma_id", nullable = false)
+    private List<Turma> turma = new ArrayList();
+
+    public Disciplina(String nome) {
+        this.nome = nome;
+    }
 
     //@ManyToMany
     //Relacionamento curso disciplina Curso OneToMany Disciplinas

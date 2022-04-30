@@ -1,7 +1,6 @@
 package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Aluno;
-import com.sistema.universitario.models.Disciplina;
 import com.sistema.universitario.repositories.AlunoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

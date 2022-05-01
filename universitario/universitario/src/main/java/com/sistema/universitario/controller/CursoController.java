@@ -38,7 +38,7 @@ public class CursoController {
         return new ResponseEntity("Curso criado com sucesso!", HttpStatus.CREATED);
     }
 
-    @PutMapping({"id"})
+    @PutMapping({"{id}"})
     public ResponseEntity updateCurso(@PathVariable("id") Long idCurso, @RequestBody Curso curso){
         cursoService.updateCurso(idCurso, curso);
         return new ResponseEntity("Curso alterado com sucesso!", HttpStatus.OK);

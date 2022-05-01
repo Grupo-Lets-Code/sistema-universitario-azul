@@ -1,7 +1,7 @@
 package com.sistema.universitario.services;
 
 import com.sistema.universitario.exceptions.CursoNaoEncontradoException;
-import com.sistema.universitario.exceptions.DisciplinaNaoEncontradaException;
+import com.sistema.universitario.exceptions.disciplina.DisciplinaNaoEncontradaException;
 import com.sistema.universitario.models.Curso;
 import com.sistema.universitario.repositories.CursoRepository;
 import com.sistema.universitario.repositories.DisciplinaRepository;

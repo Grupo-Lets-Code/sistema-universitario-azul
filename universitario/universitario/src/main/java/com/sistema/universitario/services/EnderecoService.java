@@ -1,7 +1,7 @@
 package com.sistema.universitario.services;
 
-import com.sistema.universitario.exceptions.EnderecoInexistenteException;
-import com.sistema.universitario.exceptions.EnderecoJaCadastradoException;
+import com.sistema.universitario.exceptions.endereco.EnderecoInexistenteException;
+import com.sistema.universitario.exceptions.endereco.EnderecoJaCadastradoException;
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.repositories.EnderecoRepository;
 import org.springframework.stereotype.Service;

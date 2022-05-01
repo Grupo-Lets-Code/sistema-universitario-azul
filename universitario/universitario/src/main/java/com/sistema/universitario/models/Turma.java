@@ -19,19 +19,19 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column (name = "NOME")
+    @Column (name = "nome")
     @NotBlank(message = "Nome não informado")
-    private String nomeTurma;
+    private String nome;
 
     @ManyToMany
     @JoinColumn(name = "Professor_id", nullable = false)
-    private List<Professor> professor = new ArrayList<>();
+    private List<Professor> professores = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Aluno_id", nullable = false)
-    private List<Aluno> aluno = new ArrayList<>();
+    private List<Aluno> alunos = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Disciplina_id", nullable = false)
-    private List<Disciplina> disciplina = new ArrayList<>();
+    private List<Disciplina> disciplinas = new ArrayList<>();
 }

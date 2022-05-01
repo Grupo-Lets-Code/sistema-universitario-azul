@@ -1,4 +1,4 @@
-package com.sistema.universitario.exceptions;
+package com.sistema.universitario.exceptions.disciplina;
 
 public class DisciplinaNaoEncontradaException extends RuntimeException {
     public DisciplinaNaoEncontradaException() {

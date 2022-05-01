@@ -36,12 +36,4 @@ public class Professor {
     @OneToOne
     @JoinColumn(name = "Endereco_id", nullable = false)
     private Endereco endereco;
-
-    @ManyToMany
-    @JoinColumn(name = "Disciplina_id", nullable = false)
-    private List<Disciplina> disciplina = new ArrayList();
-
-    @ManyToMany
-    @JoinColumn(name = "Turma_id", nullable = false)
-    private List<Turma> turma = new ArrayList();
 }

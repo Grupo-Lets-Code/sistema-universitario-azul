@@ -1,5 +1,6 @@
 package com.sistema.universitario.controller;
 
+import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.services.UsuarioService;
@@ -49,6 +50,14 @@ public class UsuarioController {
     public ResponseEntity delete(@PathVariable("id") Long id){
         usuarioService.delete(id);
         return new ResponseEntity("Usuario(a) excluído(a) com sucesso!", HttpStatus.OK);
+    }
+
+
+    @GetMapping("{id}")
+    public ResponseEntity selecionaUsuarioById(@PathVariable("id") long id){
+        Usuario usuario = this.usuarioService.findById(id);
+        ResponseEntity response = new ResponseEntity(usuario, HttpStatus.OK);
+        return response;
     }
 
 }

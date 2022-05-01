@@ -1,6 +1,8 @@
 package com.sistema.universitario.services;
 
+import com.sistema.universitario.exceptions.EnderecoInexistenteException;
 import com.sistema.universitario.exceptions.UsuarioNaoEncontradoException;
+import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,6 @@ public class UsuarioService {
     public Usuario findById(Long id) {
         return this.usuarioRepository.findById(id).orElseThrow(UsuarioNaoEncontradoException::new);
     }
+
 
 }

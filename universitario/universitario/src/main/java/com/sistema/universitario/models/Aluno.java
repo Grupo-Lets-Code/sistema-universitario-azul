@@ -35,10 +35,6 @@ public class Aluno {
     @JoinColumn(name = "Endereco_id", nullable = false)
     private Endereco endereco;
 
-    @ManyToMany
-    @JoinColumn(name = "Turma_id", nullable = false)
-    private List<Turma> turma;
-
     @Enumerated(EnumType.STRING)
     private StatusUsuario status;
 }

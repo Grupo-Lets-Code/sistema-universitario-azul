@@ -1,11 +1,11 @@
 package com.sistema.universitario.services;
 
-import com.sistema.universitario.exceptions.EnderecoInexistenteException;
 import com.sistema.universitario.exceptions.UsuarioNaoEncontradoException;
-import com.sistema.universitario.models.Endereco;
+import com.sistema.universitario.models.Aluno;
 import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -29,14 +29,15 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void updateEmail(Long id, Usuario email) {
+    public void updateEmail(Long id, String email) {
         Usuario usuario = findById(id);
-        usuario.setEmail(email.getEmail());
+        usuario.setEmail(email);
         save(usuario);
     }
-    public void updateSenha(Long id, Usuario senha) {
+
+    public void updateSenha(Long id, String senha) {
         Usuario usuario = findById(id);
-        usuario.setPassword(senha.getPassword());
+        usuario.setPassword(senha);
         save(usuario);
     }
 
@@ -46,10 +47,8 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
-
     public Usuario findById(Long id) {
         return this.usuarioRepository.findById(id).orElseThrow(UsuarioNaoEncontradoException::new);
     }
-
 
 }

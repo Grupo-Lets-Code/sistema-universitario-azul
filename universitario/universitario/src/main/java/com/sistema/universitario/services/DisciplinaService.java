@@ -1,8 +1,9 @@
 package com.sistema.universitario.services;
 
-import com.sistema.universitario.exceptions.DisciplinaNaoEncontradaException;
+import com.sistema.universitario.exceptions.disciplina.DisciplinaNaoEncontradaException;
 import com.sistema.universitario.models.Disciplina;
 import com.sistema.universitario.repositories.DisciplinaRepository;
+import com.sistema.universitario.repositories.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,12 @@ import java.util.List;
 @Service
 public class DisciplinaService {
     private final DisciplinaRepository disciplinaRepository;
+    private final ProfessorRepository professorRepository;
 
-    public DisciplinaService(DisciplinaRepository disciplinaRepository) {
+    public DisciplinaService(DisciplinaRepository disciplinaRepository,
+                             ProfessorRepository professorRepository) {
         this.disciplinaRepository = disciplinaRepository;
+        this.professorRepository = professorRepository;
     }
 
     public List<Disciplina> findAll() {
@@ -34,8 +38,15 @@ public class DisciplinaService {
         disciplinaRepository.delete(disciplina);
     }
 
-    public Disciplina findById(Long id) {
-        return this.disciplinaRepository.findById(id).orElseThrow(DisciplinaNaoEncontradaException::new);
+    public void deleteProfessorDisciplina(Long idProfessor, Long idDisciplina) {
+        Disciplina disciplina = findById(idDisciplina);
+        var professor = professorRepository.findById(idProfessor);
+        disciplina.getProfessor().remove(professor);
+        save(disciplina);
     }
 
+    public Disciplina findById(Long id) {
+        return this.disciplinaRepository.findById(id)
+                .orElseThrow(DisciplinaNaoEncontradaException::new);
+    }
 }

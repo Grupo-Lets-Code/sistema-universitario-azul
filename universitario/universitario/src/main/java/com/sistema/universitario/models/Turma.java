@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,13 +25,13 @@ public class Turma {
 
     @ManyToMany
     @JoinColumn(name = "Professor_id", nullable = false)
-    private List<Professor> professor;
+    private List<Professor> professor = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Aluno_id", nullable = false)
-    private List<Aluno> aluno;
+    private List<Aluno> aluno = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Disciplina_id", nullable = false)
-    private List<Disciplina> disciplina;
+    private List<Disciplina> disciplina = new ArrayList<>();
 }

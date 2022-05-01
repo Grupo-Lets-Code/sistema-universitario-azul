@@ -1,7 +1,14 @@
-package src.main.java.com.sistema.universitario.services;
+package com.sistema.universitario.services;
+
+import com.sistema.universitario.exceptions.UsuarioNaoEncontradoException;
+import com.sistema.universitario.models.Usuario;
+import com.sistema.universitario.repositories.UsuarioRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public class UsuarioService {
 
 
@@ -20,14 +27,14 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void updateEmail(Long id, Usuario usuarioRequest) {
+    public void updateEmail(Long id, Usuario email) {
         Usuario usuario = findById(id);
-        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setEmail(email.getEmail());
         save(usuario);
     }
-    public void updateSenha(Long id, Usuario usuarioRequest) {
+    public void updateSenha(Long id, Usuario senha) {
         Usuario usuario = findById(id);
-        usuario.setSenha(usuarioRequest.getSenha());
+        usuario.setPassword(senha.getPassword());
         save(usuario);
     }
 
@@ -37,5 +44,9 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
+
+    public Usuario findById(Long id) {
+        return this.usuarioRepository.findById(id).orElseThrow(UsuarioNaoEncontradoException::new);
+    }
 
 }

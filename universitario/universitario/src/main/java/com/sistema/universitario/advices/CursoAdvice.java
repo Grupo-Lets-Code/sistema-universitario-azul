@@ -2,6 +2,8 @@ package com.sistema.universitario.advices;
 
 import com.sistema.universitario.exceptions.CursoNaoEncontradoException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -14,15 +16,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class CursoAdvice {
 
+    private final Logger log = LoggerFactory.getLogger(CursoAdvice.class);
 
     @ExceptionHandler
     public ResponseEntity NotFoundCurso(CursoNaoEncontradoException e){
         ResponseEntity response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        log.error("error message curso não encontrado!");
         return response;
     }
 
@@ -34,19 +38,7 @@ public class CursoAdvice {
             String errorMessage = ((FieldError) error).getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        log.error("error message {}", errors);
+        log.error("error message curso {}", errors);
         return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }
-
-  /*  @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity exceptionHandling(HttpMessageNotReadableException exception) {
-        Map<String, String> errors = new HashMap<>();
-        exception.getHttpInputMessage()..forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = ((FieldError) error).getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }*/
 }

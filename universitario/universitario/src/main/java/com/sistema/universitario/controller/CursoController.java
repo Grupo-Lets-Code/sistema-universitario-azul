@@ -2,6 +2,8 @@ package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Curso;
 import com.sistema.universitario.services.CursoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/cursos")
 public class CursoController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(CursoController.class);
     private final CursoService cursoService;
 
     public CursoController(CursoService cursoService) {
@@ -22,6 +25,11 @@ public class CursoController {
     @GetMapping
     public List<Curso> getAllCursos(){
         return cursoService.findAllCursos();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable("id") Long id){
+        var curso = this.cursoService.findCursoById(id);
+        return new ResponseEntity(curso, HttpStatus.FOUND);
     }
 
     @PostMapping

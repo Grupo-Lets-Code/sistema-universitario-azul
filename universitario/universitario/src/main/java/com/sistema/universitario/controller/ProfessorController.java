@@ -23,13 +23,19 @@ public class ProfessorController {
         return professorService.findAll();
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity getProfessorById(@PathVariable("id") Long id) {
+        Professor professor = this.professorService.findById(id);
+        return new ResponseEntity(professor, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity save(@Valid @RequestBody Professor professor) {
         this.professorService.save(professor);
         return new ResponseEntity("Professor(a) criado(a) com sucesso!", HttpStatus.CREATED);
     }
 
-    @PutMapping({"id"})
+    @PutMapping({"{id}"})
     public ResponseEntity update(@PathVariable("id") Long idProfessor,
                                            @RequestBody Professor professor) {
         professorService.update(idProfessor, professor);
@@ -42,16 +48,16 @@ public class ProfessorController {
         return new ResponseEntity("Professor(a) excluído(a) com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("{idProfessor}/{idDisciplina}")
+    @DeleteMapping("deletar-professor-disciplina/{idProfessor}/{idDisciplina}")
     public ResponseEntity deleteProfessorDisciplina(@PathVariable("idProfessor") Long idProfessor,
                                                     @PathVariable("idDisciplina") Long idDisciplina) {
         professorService.deleteProfessorDisciplina(idProfessor, idDisciplina);
         return new ResponseEntity("Professor(a) excluído(a) da disciplina com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("{idProfessor}/{idTurma}")
+    @DeleteMapping("deletar-professor-turma/{idProfessor}/{idTurma}")
     public ResponseEntity deleteProfessorTurma(@PathVariable("idProfessor") Long idProfessor,
-                                                    @PathVariable("idTurma") Long idTurma) {
+                                               @PathVariable("idTurma") Long idTurma) {
         professorService.deleteProfessorTurma(idProfessor, idTurma);
         return new ResponseEntity("Professor(a) excluído(a) da turma com sucesso!", HttpStatus.OK);
     }

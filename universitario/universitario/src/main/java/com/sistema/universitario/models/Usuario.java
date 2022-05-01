@@ -21,4 +21,10 @@ public class Usuario {
 
     @Column(name = "PASSWORD")
     private String password;
+
+
+    public Usuario(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

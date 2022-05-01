@@ -1,8 +1,10 @@
 package com.sistema.universitario.services;
 
 import com.sistema.universitario.exceptions.CursoNaoEncontradoException;
+import com.sistema.universitario.exceptions.DisciplinaNaoEncontradaException;
 import com.sistema.universitario.models.Curso;
 import com.sistema.universitario.repositories.CursoRepository;
+import com.sistema.universitario.repositories.DisciplinaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +13,12 @@ import java.util.List;
 public class CursoService {
 
     private final CursoRepository cursoRepository;
+    private final DisciplinaRepository disciplinaRepository;
 
 
-    public CursoService(CursoRepository cursoRepository) {
+    public CursoService(CursoRepository cursoRepository, DisciplinaRepository disciplinaRepository) {
         this.cursoRepository = cursoRepository;
+        this.disciplinaRepository = disciplinaRepository;
     }
 
     public Curso findCursoById(Long id){
@@ -40,5 +44,21 @@ public class CursoService {
         cursoRepository.delete(curso);
     }
 
+    public Curso deleteCursoDisciplina(Long idCurso, Long idDisciplina){
+        var curso = findCursoById(idCurso);
+        var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
+        curso.getDisciplinas().remove(disciplina);
+        cursoRepository.save(curso);
+        return curso;
+    }
+
+    public Curso addCursoDisciplina(Long idCurso, Long idDisciplina){
+        var curso = findCursoById(idCurso);
+        var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
+        curso.getDisciplinas().add(disciplina);
+        cursoRepository.save(curso);
+
+        return curso;
+    }
 
 }

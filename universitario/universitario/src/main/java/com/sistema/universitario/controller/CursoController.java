@@ -42,5 +42,18 @@ public class CursoController {
         return new ResponseEntity("Curso excluído com sucesso!", HttpStatus.OK);
     }
 
+    @DeleteMapping("del-disciplina")
+    public ResponseEntity deleteCursoDisciplina(@RequestParam("idCurso") Long idCurso,
+                                                    @RequestParam("idDisciplina") Long idDisciplina) {
+        var curso = cursoService.deleteCursoDisciplina(idCurso, idDisciplina);
+        return new ResponseEntity("Disciplina excluída do curso " + curso.getNomeCurso() + "com sucesso!", HttpStatus.OK);
+    }
+
+    @PostMapping("add-disciplina")
+    public ResponseEntity addCursoDisciplina(@RequestParam("idCurso") Long idCurso,
+                                                @RequestParam("idDisciplina") Long idDisciplina) {
+        var curso = cursoService.addCursoDisciplina(idCurso, idDisciplina);
+        return new ResponseEntity("Disciplina adiciona no curso " + curso.getNomeCurso() + "com sucesso!", HttpStatus.OK);
+    }
 
 }

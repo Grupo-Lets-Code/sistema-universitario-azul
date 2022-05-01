@@ -1,7 +1,6 @@
 package com.sistema.universitario.controller;
 
-import com.sistema.universitario.exceptions.EnderecoInexistenteException;
-import com.sistema.universitario.exceptions.EnderecoJaCadastradoException;
+
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.services.EnderecoService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.sistema.universitario.advices;
 
-import com.sistema.universitario.exceptions.DisciplinaNaoEncontradaException;
-import com.sistema.universitario.exceptions.DisciplinaProfessorNaoEncontradaException;
+import com.sistema.universitario.exceptions.disciplina.DisciplinaNaoEncontradaException;
+import com.sistema.universitario.exceptions.disciplina.DisciplinaProfessorNaoEncontradaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,5 @@
 package com.sistema.universitario.controller;
 
-import com.sistema.universitario.models.Endereco;
-import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.services.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -34,14 +32,14 @@ public class UsuarioController {
 
     @PutMapping({"{idUsuario}/{email}"})
     public ResponseEntity updateEmail(@PathVariable("idUsuario") Long idUsuario,
-                                                    @PathVariable("email") Usuario email) {
+                                                    @PathVariable("email") String email) {
         usuarioService.updateEmail(idUsuario, email);
         return new ResponseEntity("Email alterado com sucesso!", HttpStatus.OK);
     }
 
     @PutMapping({"{idUsuario}/{senha}"})
     public ResponseEntity updateSenha(@PathVariable("idUsuario") Long idUsuario,
-                                      @PathVariable("senha") Usuario senha) {
+                                      @PathVariable("senha") String senha) {
         usuarioService.updateEmail(idUsuario, senha);
         return new ResponseEntity("Senha alterada com sucesso!", HttpStatus.OK);
     }

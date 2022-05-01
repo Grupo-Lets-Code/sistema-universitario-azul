@@ -25,7 +25,6 @@ public class TurmaController {
         return turmaRepository.save(turma);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         return turmaRepository.findById(id)

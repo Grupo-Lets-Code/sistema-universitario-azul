@@ -14,7 +14,7 @@ public class EnderecoValidator implements ConstraintValidator<EnderecoConstraint
     public boolean isValid(Endereco endereco, ConstraintValidatorContext constraintValidatorContext) {
         return endereco != null &&
                 endereco.getBairro().matches("^[A-Za-zÀ-ÿ0-9 ]+$") &&
-                endereco.getNum().matches("\\d+|\\d+\\w") &&
+                endereco.getNum().matches("\\d+\\w") &&
                 endereco.getCep().matches("\\d{5}-\\d{3}|\\d{5}\\d{3}") &&
                 endereco.getCidade().matches("[A-Za-zÀ-ÿ ]+");
 

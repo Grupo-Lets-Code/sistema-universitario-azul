@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-
 @Entity
 public class Disciplina {
 
@@ -31,6 +30,10 @@ public class Disciplina {
     @ManyToMany
     @JoinColumn(name = "Turma_id", nullable = false)
     private List<Turma> turma = new ArrayList();
+
+    @ManyToMany
+    @JoinColumn(name = "curso_id", nullable = false)
+    private List<Curso> disciplinas = new ArrayList();
 
     public Disciplina(String nome) {
         this.nome = nome;

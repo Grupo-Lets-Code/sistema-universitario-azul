@@ -1,6 +1,5 @@
 package com.sistema.universitario.advices;
 
-import com.sistema.universitario.exceptions.UserNaoEncontradoException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +14,10 @@ import java.util.Map;
 
 @Slf4j
 @ControllerAdvice
-public class UserAdvice {
+public class UsuarioAdvice {
 
     @ExceptionHandler
-    public ResponseEntity NotFoundUser(UserNaoEncontradoException e){
+    public ResponseEntity NotFoundUser(UsuarioNaoEncontradoException e){
         ResponseEntity response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         return response;
     }

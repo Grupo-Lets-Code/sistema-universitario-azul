@@ -37,13 +37,6 @@ public class ProfessorService {
         professorRepository.delete(professor);
     }
 
-    public void deleteProfessorDisciplina(Long idProfessor, Long idDisciplina) {
-        Professor professor = findById(idProfessor);
-        var disciplina = disciplinaService.findById(idDisciplina);
-        professor.getDisciplina().remove(disciplina);
-        professorRepository.save(professor);
-    }
-
     public void deleteProfessorTurma(Long idProfessor, Long idTurma) {
         Professor professor = findById(idProfessor);
     /*    var turma = turmaService.findById(idTurma);

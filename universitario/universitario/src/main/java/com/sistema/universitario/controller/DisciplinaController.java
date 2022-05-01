@@ -41,4 +41,11 @@ public class DisciplinaController {
         disciplinaService.delete(id);
         return new ResponseEntity("Disciplina excluída com sucesso!", HttpStatus.OK);
     }
+
+    @DeleteMapping("deletar-professor/{idProfessor}/{idDisciplina}")
+    public ResponseEntity deleteProfessorDisciplina(@PathVariable("idProfessor") Long idProfessor,
+                                                    @PathVariable("idDisciplina") Long idDisciplina) {
+        disciplinaService.deleteProfessorDisciplina(idProfessor, idDisciplina);
+        return new ResponseEntity("Professor(a) excluído(a) da disciplina com sucesso!", HttpStatus.OK);
+    }
 }

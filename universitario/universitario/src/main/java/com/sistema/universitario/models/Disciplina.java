@@ -27,12 +27,7 @@ public class Disciplina {
     @JoinColumn(name = "Professor_id")
     private List<Professor> professor = new ArrayList();
 
-    @ManyToMany
-    @JoinColumn(name = "Turma_id", nullable = false)
-    private List<Turma> turma = new ArrayList();
-
-    public Disciplina(String nome) {
+    public Disciplina(String nome)  {
         this.nome = nome;
     }
-
 }

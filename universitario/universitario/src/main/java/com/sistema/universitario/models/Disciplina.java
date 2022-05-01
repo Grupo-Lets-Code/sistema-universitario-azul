@@ -31,18 +31,8 @@ public class Disciplina {
     @JoinColumn(name = "Turma_id", nullable = false)
     private List<Turma> turma = new ArrayList();
 
-    @ManyToMany
-    @JoinColumn(name = "curso_id", nullable = false)
-    private List<Curso> disciplinas = new ArrayList();
-
     public Disciplina(String nome) {
         this.nome = nome;
     }
 
-    //@ManyToMany
-    //Relacionamento curso disciplina Curso OneToMany Disciplinas
-    //Delete disciplina idCurso e passar o idDisciplina excluir o relacionameto
-    // Curso table Disciplina e eo relacionamento idCurso e idDisciplina
-    //excluir os elementos da lista pelo save
-    // id curso e id disciplina
 }

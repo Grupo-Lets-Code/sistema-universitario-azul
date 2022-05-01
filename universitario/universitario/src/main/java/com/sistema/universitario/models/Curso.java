@@ -28,6 +28,7 @@ public class Curso implements Serializable{
     private Turno turno;
 
     @ManyToMany
+    @JoinColumn(name = "disciplina_id", nullable = false)
     private List<Disciplina> disciplinas = new ArrayList<>();
 
     public Curso(String nomeCurso, Turno turno) {

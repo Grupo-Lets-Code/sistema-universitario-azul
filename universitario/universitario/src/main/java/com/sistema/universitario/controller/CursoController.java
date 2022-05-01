@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/cursos")
 public class CursoController {
 
@@ -22,17 +24,25 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
-    @GetMapping
+    @GetMapping("/todos-cursos")
     public List<Curso> getAllCursos(){
         return cursoService.findAllCursos();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Long id){
         var curso = this.cursoService.findCursoById(id);
         return new ResponseEntity(curso, HttpStatus.FOUND);
     }
 
-    @PostMapping
+    @GetMapping
+    public String index(Model model){
+        List<Curso> cursos = this.cursoService.findAllCursos();
+        model.addAttribute("cursos", cursos);
+        return "index";
+    }
+
+    @PostMapping("/novo-curso")
     public ResponseEntity saveCurso(@Valid @RequestBody Curso curso){
         this.cursoService.saveCurso(curso);
         return new ResponseEntity("Curso criado com sucesso!", HttpStatus.CREATED);
@@ -44,7 +54,7 @@ public class CursoController {
         return new ResponseEntity("Curso alterado com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity deleteCurso(@PathVariable("id") Long id){
         cursoService.deleteCurso(id);
         return new ResponseEntity("Curso excluído com sucesso!", HttpStatus.OK);

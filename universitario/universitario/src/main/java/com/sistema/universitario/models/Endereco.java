@@ -18,7 +18,7 @@ public class Endereco {
     @Column
     private long id;
 
-    @NotBlank(message = "Logradouro não informado")
+    @NotBlank(message = "Rua não informada")
     @Column(nullable = false)
     private String rua;
 
@@ -26,7 +26,7 @@ public class Endereco {
     @Column(nullable = false)
     private String num;
 
-    @NotBlank(message = "Cidade não informado")
+    @NotBlank(message = "Cidade não informada")
     @Column(nullable = false)
     private String cidade;
 
@@ -42,5 +42,4 @@ public class Endereco {
     @JoinColumn(name="Usuario_ID", nullable = false)
     private Usuario usuario;
 
-    // Copiar o resto do projeto banco
 }

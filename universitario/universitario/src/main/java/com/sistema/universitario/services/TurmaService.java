@@ -56,7 +56,7 @@ public class TurmaService {
     public Turma addTurmaAluno(Long idTurma, Long idAluno){
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
         Turma turma = this.findById(idTurma);
-        turma.getAlunos().add(aluno);
+        turma.getAluno().add(aluno);
         this.save(turma);
         return turma;
     }
@@ -64,7 +64,7 @@ public class TurmaService {
     public Turma removeTurmaAluno(Long idTurma, Long idAluno) {
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
         Turma turma = this.findById(idTurma);
-        turma.getAlunos().remove(aluno);
+        turma.getAluno().remove(aluno);
         this.save(turma);
         return turma;
     }
@@ -72,7 +72,7 @@ public class TurmaService {
     public Turma addTurmaProfessor(Long idTurma, Long idProfessor){
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
         Turma turma = findById(idTurma);
-        turma.getProfessores().add(professor);
+        turma.getProfessor().add(professor);
         this.save(turma);
         return turma;
     }
@@ -80,7 +80,7 @@ public class TurmaService {
     public Turma removeTurmaProfessor(Long idTurma, Long idProfessor) {
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
         Turma turma = findById(idTurma);
-        turma.getProfessores().remove(professor);
+        turma.getProfessor().remove(professor);
         this.save(turma);
         return turma;
     }
@@ -88,7 +88,7 @@ public class TurmaService {
     public Turma addTurmaDisciplina(Long idTurma, Long idDisciplina) {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
         Turma turma = findById(idTurma);
-        turma.getDisciplinas().add(disciplina);
+        turma.getDisciplina().add(disciplina);
         this.save(turma);
         return turma;
     }
@@ -96,7 +96,7 @@ public class TurmaService {
     public Turma removeTurmaDisciplina(Long idTurma, Long idDisciplina) {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
         Turma turma = findById(idTurma);
-        turma.getDisciplinas().remove(disciplina);
+        turma.getDisciplina().remove(disciplina);
         this.save(turma);
         return turma;
     }

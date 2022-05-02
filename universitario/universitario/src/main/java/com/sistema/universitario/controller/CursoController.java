@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,12 +34,12 @@ public class CursoController {
         return new ResponseEntity(curso, HttpStatus.FOUND);
     }
 
-    @GetMapping
+   /* @GetMapping
     public String index(Model model){
         List<Curso> cursos = this.cursoService.findAllCursos();
         model.addAttribute("cursos", cursos);
-        return "index";
-    }
+        return "redirect:home";
+    }*/
 
     @PostMapping("/novo-curso")
     public ResponseEntity saveCurso(@Valid @RequestBody Curso curso){

@@ -15,12 +15,12 @@ import java.util.List;
 @Controller
 @RequestMapping ("/aluno")
 public class AlunoController {
-
-
     private final AlunoRepository alunoRepository;
+    private final AlunoService alunoService;
     public AlunoController(AlunoService alunoService, AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
-         }
+        this.alunoService = alunoService;
+    }
 
     @GetMapping("todos-alunos")
     public List<Aluno> getAll(){
@@ -47,11 +47,13 @@ public class AlunoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Aluno> update(@PathVariable Long id, @RequestBody Aluno aluno) {
-        return alunoRepository.findById(id)
-                .map(save -> { save.setNome(aluno.getNome());
-                    Aluno newSave = alunoRepository.save(save);
-                    return ResponseEntity.ok().body(newSave);})
-                .orElse(ResponseEntity.notFound().build());
+            alunoService.update(id, aluno);
+            return new ResponseEntity("Aluno Atualizado com sucesso!", HttpStatus.OK);
     }
 
+    @DeleteMapping("deletar-aluno/{idAluno}")
+    public ResponseEntity deleteAlunoTurma(@PathVariable("idAluno") Long idAluno) {
+        alunoService.deleteAlunoStatus(idAluno);
+        return new ResponseEntity("Aluno(a) excluído(a) da turma com sucesso!", HttpStatus.OK);
+    }
 }

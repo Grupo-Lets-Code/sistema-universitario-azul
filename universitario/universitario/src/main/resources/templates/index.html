@@ -6,10 +6,43 @@
     <title>Universidade Azul</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <h1 th:inline="text">Olá [[${#httpServletRequest.remoteUser}]] vá para o Postman testar as requisições!</h1>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="form-group border border-secondary">
+        <div th:switch="${alunos}">
+            <div th:case="null">
+                <h2>Não foi possível recuperar a lista de alunos</h2>
+            </div>
+            <div th:case="*">
+                <h2 th:align="center">Alunos</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr scope="row" th:each="aluno : ${alunos}">
+                        <td th:text="${aluno.id}"></td>
+                        <td th:text="${aluno.nome}"></td>
+                        <td th:text="${aluno.cpf}"></td>
+                        <td th:text="${aluno.status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="/alunos/novo-aluno">Cadastrar Novo Aluno</a>
+            </div>
+        </div>
+    </div>
+</div>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

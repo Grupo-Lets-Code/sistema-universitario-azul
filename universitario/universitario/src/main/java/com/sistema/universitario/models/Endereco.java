@@ -38,8 +38,4 @@ public class Endereco {
     @Column(nullable = false)
     private String cep;
 
-    @OneToOne
-    @JoinColumn(name="Usuario_ID", nullable = false)
-    private Usuario usuario;
-
 }

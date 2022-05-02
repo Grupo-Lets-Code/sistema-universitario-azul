@@ -28,75 +28,76 @@ public class TurmaService {
         this.disciplinaRepository = disciplinaRepository;
     }
 
-    public List<Turma> findAll() {
+    public List<Turma> findAllTurmas() {
         return turmaRepository.findAll();
     }
 
-    public Turma findById(Long idTurma) {
+    public Turma findTurmaById(Long idTurma) {
         return turmaRepository.findById(idTurma).orElseThrow(TurmaNaoEncontradaException::new);
     }
 
-    public void save(Turma turma) {
+    public Turma save(Turma turma) {
         turmaRepository.save(turma);
+        return turma;
     }
 
     public Turma updateNomeTurma(Long idTurma, String nomeTurma) {
-        Turma turma = findById(idTurma);
+        Turma turma = findTurmaById(idTurma);
         turma.setNome(nomeTurma);
         turmaRepository.save(turma);
         return turma;
     }
 
     public Turma deleteTurma(Long idTurma) {
-        Turma turma = findById(idTurma);
+        Turma turma = findTurmaById(idTurma);
         turmaRepository.delete(turma);
         return turma;
     }
 
     public Turma addTurmaAluno(Long idTurma, Long idAluno){
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
-        Turma turma = this.findById(idTurma);
-        turma.getAlunos().add(aluno);
+        Turma turma = this.findTurmaById(idTurma);
+        turma.getAluno().add(aluno);
         this.save(turma);
         return turma;
     }
 
     public Turma removeTurmaAluno(Long idTurma, Long idAluno) {
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
-        Turma turma = this.findById(idTurma);
-        turma.getAlunos().remove(aluno);
+        Turma turma = this.findTurmaById(idTurma);
+        turma.getAluno().remove(aluno);
         this.save(turma);
         return turma;
     }
 
     public Turma addTurmaProfessor(Long idTurma, Long idProfessor){
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
-        Turma turma = findById(idTurma);
-        turma.getProfessores().add(professor);
+        Turma turma = findTurmaById(idTurma);
+        turma.getProfessor().add(professor);
         this.save(turma);
         return turma;
     }
 
     public Turma removeTurmaProfessor(Long idTurma, Long idProfessor) {
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
-        Turma turma = findById(idTurma);
-        turma.getProfessores().remove(professor);
+        Turma turma = findTurmaById(idTurma);
+        turma.getProfessor().remove(professor);
         this.save(turma);
         return turma;
     }
 
     public Turma addTurmaDisciplina(Long idTurma, Long idDisciplina) {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
-        Turma turma = findById(idTurma);
-        turma.getDisciplinas().add(disciplina);
+        Turma turma = findTurmaById(idTurma);
+        turma.getDisciplina().add(disciplina);
         this.save(turma);
         return turma;
     }
 
     public Turma removeTurmaDisciplina(Long idTurma, Long idDisciplina) {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
-        Turma turma = findById(idTurma);
-        turma.getDisciplinas().remove(disciplina);
+        Turma turma = findTurmaById(idTurma);
+        turma.getDisciplina().remove(disciplina);
         this.save(turma);
         return turma;
     }

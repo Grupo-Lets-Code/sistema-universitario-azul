@@ -25,13 +25,13 @@ public class Turma {
 
     @ManyToMany
     @JoinColumn(name = "Professor_id", nullable = false)
-    private List<Professor> professores = new ArrayList<>();
+    private List<Professor> professor = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Aluno_id", nullable = false)
-    private List<Aluno> alunos = new ArrayList<>();
+    private List<Aluno> aluno = new ArrayList<>();
 
     @ManyToMany
     @JoinColumn(name = "Disciplina_id", nullable = false)
-    private List<Disciplina> disciplinas = new ArrayList<>();
+    private List<Disciplina> disciplina = new ArrayList<>();
 }

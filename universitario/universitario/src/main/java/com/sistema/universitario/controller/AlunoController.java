@@ -38,12 +38,6 @@ public class AlunoController {
     public ResponseEntity<Aluno> update(@PathVariable Long id, @RequestBody Aluno aluno) {
         return alunoRepository.findById(id)
                 .map(save -> { save.setNome(aluno.getNome());
-                    //FIXME CRIAR A CLASSE ENDEREÇO
-                                /*save.setRua(endereco.getRua());
-                                save.setBairro(endereco.getBairro());
-                                save.setCidade(endereco.getCidade());
-                                save.setNum(endereco.getNum());
-                                save.setCep(endereco.getCep());*/
                     Aluno newSave = alunoRepository.save(save);
                     return ResponseEntity.ok().body(newSave);})
                 .orElse(ResponseEntity.notFound().build());

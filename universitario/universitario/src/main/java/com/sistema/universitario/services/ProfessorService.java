@@ -24,8 +24,8 @@ public class ProfessorService {
         return professorRepository.findBy(statusUsuario);
     }
 
-    public void save(Professor professor) {
-        professorRepository.save(professor);
+    public Professor save(Professor professor) {
+        return professorRepository.save(professor);
     }
 
     public void update(Long id, Professor professorRequest) {

@@ -36,5 +36,5 @@ public class Aluno {
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    private StatusUsuario status;
+    private StatusUsuario status = StatusUsuario.ATIVO;
 }

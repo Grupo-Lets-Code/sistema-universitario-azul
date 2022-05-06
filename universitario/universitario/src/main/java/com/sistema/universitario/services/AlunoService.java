@@ -2,6 +2,7 @@ package com.sistema.universitario.services;
 
 import com.sistema.universitario.exceptions.AlunoNaoEncontradoException;
 import com.sistema.universitario.models.Aluno;
+import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.models.StatusUsuario;
 import com.sistema.universitario.repositories.AlunoRepository;
 import org.springframework.stereotype.Service;
@@ -10,19 +11,18 @@ import java.util.List;
 
 @Service
 public class AlunoService {
-
     private final AlunoRepository alunoRepository;
 
-    private final TurmaService turmaService;
-
-    public AlunoService(AlunoRepository alunoRepository, TurmaService turmaService) {
+    public AlunoService(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
-        this.turmaService = turmaService;
-
     }
 
     public List<Aluno> findAll(){
         return alunoRepository.findAll();
+    }
+
+    public List<Aluno> findAllAtivos(String statusUsuario) {
+        return alunoRepository.findBy(statusUsuario);
     }
 
     public void save(Aluno aluno) {

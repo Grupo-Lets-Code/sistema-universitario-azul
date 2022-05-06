@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     @Query(value = "select * from Aluno where Status = ?1", nativeQuery = true)
-    List<Aluno> findByAlunosAtivos(String statusUsuario);
+    List<Aluno> findBy(String statusUsuario);
 }

@@ -15,8 +15,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/cursos")
 public class CursoController {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(CursoController.class);
     private final CursoService cursoService;
 
     public CursoController(CursoService cursoService) {
@@ -33,13 +31,6 @@ public class CursoController {
         var curso = this.cursoService.findCursoById(id);
         return new ResponseEntity(curso, HttpStatus.FOUND);
     }
-
-   /* @GetMapping
-    public String index(Model model){
-        List<Curso> cursos = this.cursoService.findAllCursos();
-        model.addAttribute("cursos", cursos);
-        return "redirect:home";
-    }*/
 
     @PostMapping("/novo-curso")
     public ResponseEntity saveCurso(@Valid @RequestBody Curso curso){

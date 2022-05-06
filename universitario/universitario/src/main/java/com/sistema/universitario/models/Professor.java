@@ -36,4 +36,7 @@ public class Professor {
     @OneToOne
     @JoinColumn(name = "Endereco_id", nullable = false)
     private Endereco endereco;
+
+    @Enumerated(EnumType.STRING)
+    private StatusUsuario status = StatusUsuario.ATIVO;
 }

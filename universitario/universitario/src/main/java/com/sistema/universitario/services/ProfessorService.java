@@ -2,6 +2,7 @@ package com.sistema.universitario.services;
 
 import com.sistema.universitario.exceptions.ProfessorNaoEncontradoException;
 import com.sistema.universitario.models.Professor;
+import com.sistema.universitario.models.StatusUsuario;
 import com.sistema.universitario.repositories.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,17 @@ import java.util.List;
 @Service
 public class ProfessorService {
     private final ProfessorRepository professorRepository;
-    private final DisciplinaService disciplinaService;
 
-    public ProfessorService(ProfessorRepository professorRepository,
-                            DisciplinaService disciplinaService) {
+    public ProfessorService(ProfessorRepository professorRepository) {
         this.professorRepository = professorRepository;
-        this.disciplinaService = disciplinaService;
     }
 
     public List<Professor> findAll() {
         return professorRepository.findAll();
+    }
+
+    public List<Professor> findAllAtivos(String statusUsuario) {
+        return professorRepository.findBy(statusUsuario);
     }
 
     public void save(Professor professor) {
@@ -34,14 +36,8 @@ public class ProfessorService {
 
     public void delete(Long id) {
         Professor professor = findById(id);
-        professorRepository.delete(professor);
-    }
-
-    public void deleteProfessorTurma(Long idProfessor, Long idTurma) {
-        Professor professor = findById(idProfessor);
-    /*    var turma = turmaService.findById(idTurma);
-        professor.getTurma().remove(turma);*/
-        professorRepository.save(professor);
+        professor.setStatus(StatusUsuario.INATIVO);
+        save(professor);
     }
 
     public Professor findById(Long id) {

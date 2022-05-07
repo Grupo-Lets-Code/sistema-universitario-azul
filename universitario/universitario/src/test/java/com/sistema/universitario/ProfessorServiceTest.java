@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class ProfessorServiceTest {
@@ -29,66 +30,131 @@ public class ProfessorServiceTest {
 
     @Test
     @DisplayName("Teste listar todos - Professor")
-    void listarTodos() {
+    void listarTodosProfessores() {
         List<Professor> professoresList = new ArrayList<>();
         professoresList.add(
                 new Professor(1, (new Usuario()), "Professor Teste",
                         "123456", (new Endereco()), StatusUsuario.ATIVO));
+
+        professoresList.add(
+                new Professor(2, (new Usuario()), "Professor Teste 2",
+                        "654321", (new Endereco()), StatusUsuario.ATIVO));
 
         Mockito.when(professorRepository.findAll())
                 .thenReturn(professoresList);
 
         List<Professor> professores = professorService.findAll();
         Assertions.assertNotNull(professores);
-        Assertions.assertFalse(professores.isEmpty());
-        Assertions.assertEquals(3, professoresList.size());
+        Assertions.assertEquals(2, professoresList.size());
     }
 
     @Test
-    @DisplayName("Teste listar todos - Professor")
-    void listarAtivos() {
+    @DisplayName("Teste listar ativos - Professor")
+    void listarProfessoresAtivos() {
+        List<Professor> professoresAtivoList = new ArrayList<>();
+        professoresAtivoList.add(
+                new Professor(1, (new Usuario()), "Professor Teste",
+                        "123456", (new Endereco()), StatusUsuario.ATIVO));
+
+        professoresAtivoList.add(
+                new Professor(2, (new Usuario()), "Professor Teste 2",
+                        "654321", (new Endereco()), StatusUsuario.INATIVO));
+
+        List<Professor> professores = professorService.findAllAtivos(String
+                .valueOf(StatusUsuario.ATIVO));
+        Assertions.assertNotNull(professores);
     }
 
     @Test
-    @DisplayName("Teste encontrar - Professor")
-    void encontrar() {
+    @DisplayName("Teste encontrar por id - Professor")
+    void encontrarPorId() {
+        Professor professor = new Professor();
+        professor.setId(123);
+        professor.setNome("Teste");
+        professor.setCpf("12345");
+        professor.setStatus(StatusUsuario.ATIVO);
+
+        Mockito.when(professorRepository.findById(professor.getId()))
+                .thenReturn(Optional.of(professor));
+
+        professor = professorService.findById(professor.getId());
+
+        Assertions.assertNotNull(professor);
+        Assertions.assertEquals(professor.getId(), professor.getId());
     }
 
     @Test
     @DisplayName("Teste cadastrar - Professor")
-    void cadastrar() {
-        Professor professorSave = new Professor();
-        professorSave.setNome("Teste");
-        professorSave.setCpf("12345");
-        professorSave.setStatus(StatusUsuario.ATIVO);
+    void cadastrarProfessor() {
+        Professor professor = new Professor();
+        professor.setId(123);
+        professor.setNome("Teste");
+        professor.setCpf("12345");
+        professor.setStatus(StatusUsuario.ATIVO);
 
-        Professor professorReturn = new Professor();
-        professorReturn.setId(123);
-        professorReturn.setNome("Teste");
-        professorReturn.setCpf("12345");
-        professorReturn.setStatus(StatusUsuario.ATIVO);
+        Mockito.when(professorRepository.save(professor))
+                .thenReturn(professor);
 
-        Mockito.when(professorRepository.save(professorSave))
-                .thenReturn(professorReturn);
+        professor = professorService.save(professor);
 
-        professorReturn = professorService.save(professorSave);
-
-        Assertions.assertNotNull(professorReturn);
-        //Caso o seu id seja possível ser nulo, descomente a linha abaixo
-        //Assertions.assertNotNull(professorReturn.getId());
-        Assertions.assertEquals(professorSave.getNome(), professorReturn.getNome());
-        Assertions.assertEquals(professorSave.getCpf(), professorReturn.getCpf());
-        Assertions.assertEquals(StatusUsuario.ATIVO, professorReturn.getStatus());
+        Assertions.assertNotNull(professor);
+        Assertions.assertNotNull(professor.getId());
+        Assertions.assertNotNull(professor.getNome());
+        Assertions.assertNotNull(professor.getCpf());
+        Assertions.assertEquals(StatusUsuario.ATIVO, professor.getStatus());
     }
 
     @Test
     @DisplayName("Teste atualizar - Professor")
-    void atualizar() {
+    void atualizarProfessor() {
+        Professor professorAntigo = new Professor();
+        professorAntigo.setId(123);
+        professorAntigo.setNome("Teste");
+        professorAntigo.setCpf("12345");
+        professorAntigo.setStatus(StatusUsuario.ATIVO);
+
+        Professor professorAtualizado = new Professor();
+        professorAtualizado.setId(professorAtualizado.getId());
+        professorAtualizado.setNome("Teste Atualizado");
+        professorAtualizado.setCpf(professorAntigo.getCpf());
+        professorAtualizado.setStatus(professorAntigo.getStatus());
+
+        Mockito.when(professorRepository.save(professorAntigo))
+                .thenReturn(professorAtualizado);
+
+        professorAtualizado = professorService.save(professorAntigo);
+
+        Assertions.assertNotNull(professorAntigo);
+        Assertions.assertNotNull(professorAtualizado);
+        Assertions.assertNotNull(professorAntigo.getNome(), professorAtualizado.getNome());
     }
 
     @Test
     @DisplayName("Teste deletar - Professor")
-    void deletar() {
-    }
+    void deletarProfessor() {
+        Professor professor = new Professor();
+        professor.setId(123);
+        professor.setNome("Teste");
+        professor.setCpf("12345");
+        professor.setStatus(StatusUsuario.ATIVO);
 
+        Professor professorDeletado = new Professor();
+        professorDeletado.setId(professor.getId());
+        professorDeletado.setNome(professor.getNome());
+        professorDeletado.setCpf(professor.getCpf());
+        professorDeletado.setStatus(StatusUsuario.INATIVO);
+
+        Mockito.when(professorRepository.save(professor))
+                .thenReturn(professorDeletado);
+
+        professorDeletado = professorService.save(professor);
+
+        Assertions.assertNotNull(professor);
+        Assertions.assertEquals(professor.getId(), professor.getId());
+        Assertions.assertEquals(StatusUsuario.ATIVO, professor.getStatus());
+
+        Assertions.assertNotNull(professorDeletado);
+        Assertions.assertEquals(professorDeletado.getId(), professorDeletado.getId());
+        Assertions.assertEquals(StatusUsuario.INATIVO, professorDeletado.getStatus());
+    }
 }

@@ -25,8 +25,8 @@ public class AlunoService {
         return alunoRepository.findBy(statusUsuario);
     }
 
-    public void save(Aluno aluno) {
-        alunoRepository.save(aluno);
+    public Aluno save(Aluno aluno) {
+        return alunoRepository.save(aluno);
     }
 
     public void update(Long id, Aluno alunoRequest){

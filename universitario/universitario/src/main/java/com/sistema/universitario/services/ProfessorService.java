@@ -34,10 +34,10 @@ public class ProfessorService {
         save(professor);
     }
 
-    public void delete(Long id) {
+    public Professor delete(Long id) {
         Professor professor = findById(id);
         professor.setStatus(StatusUsuario.INATIVO);
-        save(professor);
+        return save(professor);
     }
 
     public Professor findById(Long id) {

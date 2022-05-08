@@ -2,8 +2,6 @@ package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Curso;
 import com.sistema.universitario.services.CursoService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -63,5 +61,4 @@ public class CursoController {
         var curso = cursoService.addCursoDisciplina(idCurso, idDisciplina);
         return new ResponseEntity("Disciplina adiciona no curso " + curso.getNomeCurso() + "com sucesso!", HttpStatus.OK);
     }
-
 }

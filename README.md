@@ -62,6 +62,17 @@ Modelagem original do projeto para Sistema Universitário onde adequamos ao MVP 
 | PUT          | `/aluno/{id}`               | Altera informações de um aluno       |
 | DELETE       | `/aluno/deletar-aluno/{id}` | Adiciona status de inativo ao aluno  |
 
+## 🔃 Manipulação das Rotas de Professores:
+
+| Método HTTP  | Endpoint                    | Descrição                            |
+| ------------ | --------------------------- | ------------------------------------ |
+| GET          | `/professor/listar-todos`   | Retorna todos os professores         |
+| GET          | `/professor/listar-ativos`  | Retorna professores ativos           |
+| GET          | `/professor/encontrar/{id}` | Retorna informações de um professor  |
+| POST         | `/professor/cadastrar`      | Cria/cadastra um novo professor      |
+| PUT          | `/professor/atualizar/{id}` | Altera informações do professor      |
+| DELETE       | `/professor/deletar/{id}`   | Adiciona status inativo ao professor |
+
 ## 🔃 Manipulação das Rotas de Cursos:
 
 | Método HTTP  | Endpoint                    | Descrição                            |
@@ -69,9 +80,11 @@ Modelagem original do projeto para Sistema Universitário onde adequamos ao MVP 
 | GET          | `/cursos/todos-cursos`      | Retorna todos os cursos              |
 | GET          | `/cursos/{id}`              | Retorna as informações do curso      |
 | POST         | `/cursos/novo-curso`        | Cria/cadastra um novo curso          |
+| POST         | `/cursos/add-disciplina`    | Adiciona o relacionamento de curso   |
+|@RequestParam |`("idCurso")("idDisciplina")`| com uma disciplina                   |
 | PUT          | `/cursos/{id}`              | Altera informações de um curso       |
 | DELETE       | `/cursos/deletar/{id}`      | Deleta um curso                      |
-| DELETE       | `/cursos/del-disciplina`    | Deleta o relacionamento de um curso  |
+| DELETE       | `/cursos/del-disciplina`    | Deleta o relacionamento de curso     |
 |@RequestParam |`("idCurso")("idDisciplina")`| com uma disciplina                   |
 
 ## 🔃 Manipulação das Rotas de Disciplinas:

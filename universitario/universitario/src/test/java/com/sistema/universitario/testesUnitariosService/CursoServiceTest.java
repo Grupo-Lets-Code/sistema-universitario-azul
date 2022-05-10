@@ -47,7 +47,7 @@ public class CursoServiceTest {
 
         when(cursoRepository.save(cursoSave)).thenReturn(cursoRetorno);
 
-        cursoRetorno = cursoRepository.save(cursoSave);
+        cursoRetorno = cursoService.saveCurso(cursoSave);
 
         Assertions.assertNotNull(cursoRetorno);
         Assertions.assertNotNull(cursoRetorno.getId());
@@ -65,7 +65,7 @@ public class CursoServiceTest {
 
         when(cursoRepository.findAll()).thenReturn(cursoList);
 
-        List<Curso> cursoRetorno = cursoRepository.findAll();
+        List<Curso> cursoRetorno = cursoService.findAllCursos();
         Assertions.assertNotNull(cursoRetorno);
         Assertions.assertEquals(cursoList.size(), cursoRetorno.size());
     }
@@ -102,7 +102,7 @@ public class CursoServiceTest {
 
         when(cursoRepository.save(oldCurso)).thenReturn(cursoAtual);
 
-        cursoAtual = cursoRepository.save(oldCurso);
+        cursoAtual = cursoService.updateCurso(oldCurso.getId(), oldCurso);
         Assertions.assertNotNull(oldCurso);
         Assertions.assertNotNull(cursoAtual);
         Assertions.assertEquals(oldCurso.getId(), cursoAtual.getId());
@@ -136,6 +136,7 @@ public class CursoServiceTest {
         curso.setTurno(Turno.NOITE);
 
         var disciplina = new Disciplina( "Estrutura de Dados");
+        disciplina.setId(1L);
 
         var cursoAtualizado = new Curso();
         cursoAtualizado.setId(curso.getId());
@@ -145,7 +146,7 @@ public class CursoServiceTest {
 
         when(cursoRepository.save(curso)).thenReturn(cursoAtualizado);
 
-        var cursoRetorno = cursoRepository.save(curso);
+        var cursoRetorno = cursoService.addCursoDisciplina(curso.getId(), disciplina.getId());
 
         Assertions.assertNotNull(cursoRetorno);
         Assertions.assertNotNull(cursoAtualizado);

@@ -26,16 +26,16 @@ public class CursoService {
 
     public List<Curso> findAllCursos() { return cursoRepository.findAll();}
 
-    public void saveCurso(Curso curso){
-        cursoRepository.save(curso);
+    public Curso saveCurso(Curso curso){
+        return cursoRepository.save(curso);
     }
 
-    public void updateCurso(Long id, Curso cursoRequest){
+    public Curso updateCurso(Long id, Curso cursoRequest){
         Curso curso = findCursoById(id);
         curso.setNomeCurso(cursoRequest.getNomeCurso());
         curso.setTurno(cursoRequest.getTurno());
         curso.setDisciplinas(cursoRequest.getDisciplinas());
-        saveCurso(curso);
+        return saveCurso(curso);
     }
 
     public void deleteCurso(Long id){

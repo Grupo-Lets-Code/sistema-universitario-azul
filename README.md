@@ -1,7 +1,7 @@
 # SISTEMA UNIVERSITARIO
 
 Atividade em grupo da Let's Code realizade pelo grupo amarelo, repassado para o grupo azul.
-https://github.com/universidade-crescer/sistema-universitario
+[Projeto Raiz](https://github.com/universidade-crescer/sistema-universitario)
 
 ## 💻 Sobre o projeto: 
 

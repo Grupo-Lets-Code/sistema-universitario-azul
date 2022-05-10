@@ -1,4 +1,4 @@
-package com.sistema.universitario;
+package com.sistema.universitario.testesUnitariosService;
 
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.models.Professor;
@@ -7,6 +7,7 @@ import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.repositories.ProfessorRepository;
 import com.sistema.universitario.services.ProfessorService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,37 @@ public class ProfessorServiceTest {
 
     @Mock
     private ProfessorRepository professorRepository;
+
+    static Professor professor, professorAtualizado, professorDeletado;
+
+    @BeforeAll
+    static void initProfessor() {
+        professor = new Professor();
+        professor.setId(123);
+        professor.setNome("Teste");
+        professor.setCpf("12345");
+        professor.setStatus(StatusUsuario.ATIVO);
+    }
+
+    @BeforeAll
+    static void attProfessor() {
+        professorAtualizado = new Professor();
+        professorAtualizado.setId(professorAtualizado.getId());
+        professorAtualizado.setNome("Teste Atualizado");
+        professorAtualizado.setCpf(professor.getCpf());
+        professorAtualizado.setStatus(professor.getStatus());
+    }
+
+    @BeforeAll
+    static void delProfessor() {
+        initProfessor();
+        professorDeletado = new Professor();
+        professorDeletado.setId(professor.getId());
+        professorDeletado.setNome(professor.getNome());
+        professorDeletado.setCpf(professor.getCpf());
+        professorDeletado.setStatus(StatusUsuario.INATIVO);
+    }
+
 
     @Test
     @DisplayName("Teste listar todos - Professor")
@@ -68,12 +100,6 @@ public class ProfessorServiceTest {
     @Test
     @DisplayName("Teste encontrar por id - Professor")
     void encontrarPorId() {
-        Professor professor = new Professor();
-        professor.setId(123);
-        professor.setNome("Teste");
-        professor.setCpf("12345");
-        professor.setStatus(StatusUsuario.ATIVO);
-
         Mockito.when(professorRepository.findById(professor.getId()))
                 .thenReturn(Optional.of(professor));
 
@@ -86,19 +112,12 @@ public class ProfessorServiceTest {
     @Test
     @DisplayName("Teste cadastrar - Professor")
     void cadastrarProfessor() {
-        Professor professor = new Professor();
-        professor.setId(123);
-        professor.setNome("Teste");
-        professor.setCpf("12345");
-        professor.setStatus(StatusUsuario.ATIVO);
-
         Mockito.when(professorRepository.save(professor))
                 .thenReturn(professor);
 
         professor = professorService.save(professor);
 
         Assertions.assertNotNull(professor);
-        Assertions.assertNotNull(professor.getId());
         Assertions.assertNotNull(professor.getNome());
         Assertions.assertNotNull(professor.getCpf());
         Assertions.assertEquals(StatusUsuario.ATIVO, professor.getStatus());
@@ -107,43 +126,19 @@ public class ProfessorServiceTest {
     @Test
     @DisplayName("Teste atualizar - Professor")
     void atualizarProfessor() {
-        Professor professorAntigo = new Professor();
-        professorAntigo.setId(123);
-        professorAntigo.setNome("Teste");
-        professorAntigo.setCpf("12345");
-        professorAntigo.setStatus(StatusUsuario.ATIVO);
-
-        Professor professorAtualizado = new Professor();
-        professorAtualizado.setId(professorAtualizado.getId());
-        professorAtualizado.setNome("Teste Atualizado");
-        professorAtualizado.setCpf(professorAntigo.getCpf());
-        professorAtualizado.setStatus(professorAntigo.getStatus());
-
-        Mockito.when(professorRepository.save(professorAntigo))
+        Mockito.when(professorRepository.save(professor))
                 .thenReturn(professorAtualizado);
 
-        professorAtualizado = professorService.save(professorAntigo);
+        professorAtualizado = professorService.save(professor);
 
-        Assertions.assertNotNull(professorAntigo);
+        Assertions.assertNotNull(professor);
         Assertions.assertNotNull(professorAtualizado);
-        Assertions.assertNotNull(professorAntigo.getNome(), professorAtualizado.getNome());
+        Assertions.assertNotNull(professor.getNome(), professorAtualizado.getNome());
     }
 
     @Test
     @DisplayName("Teste deletar - Professor")
     void deletarProfessor() {
-        Professor professor = new Professor();
-        professor.setId(123);
-        professor.setNome("Teste");
-        professor.setCpf("12345");
-        professor.setStatus(StatusUsuario.ATIVO);
-
-        Professor professorDeletado = new Professor();
-        professorDeletado.setId(professor.getId());
-        professorDeletado.setNome(professor.getNome());
-        professorDeletado.setCpf(professor.getCpf());
-        professorDeletado.setStatus(StatusUsuario.INATIVO);
-
         Mockito.when(professorRepository.save(professor))
                 .thenReturn(professorDeletado);
 

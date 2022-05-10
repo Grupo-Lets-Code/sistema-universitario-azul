@@ -1,4 +1,4 @@
-package com.sistema.universitario;
+package com.sistema.universitario.testesUnitariosService;
 
 import com.sistema.universitario.models.Aluno;
 import com.sistema.universitario.models.Endereco;

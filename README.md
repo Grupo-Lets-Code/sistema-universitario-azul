@@ -32,6 +32,25 @@ Modelagem original do projeto para Sistema Universitário onde adequamos ao MVP 
 
 <img src = "./universitario/universitario/assets/BD UNIVERSIDADE CRESCER.png"  width="350" height="300"/>
 
+## 🔃 Manipulação das Rotas de Usuários:
+
+| Método HTTP  | Endpoint                    | Descrição                            |
+| ------------ | --------------------------- | ------------------------------------ |
+| GET          | `/usuarios`                 | Retorna todos os usuários            |
+| GET          | `/usuarios/{id}`            | Retorna as informações do usuário    |
+| POST         | `/usuarios`                 | Cria/cadastra um novo usuário        |
+| PUT          | `/usuarios/{idUser}/{email}`| Altera email de um usuário           |
+| PUT          | `/usuarios/{idUser}/{senha}`| Altera senha de um usuário           |     
+| DELETE       | `/usuarios/{id}`            | Deleta um usuário                    |
+
+## 🔃 Manipulação das Rotas de Endereço:
+
+| Método HTTP  | Endpoint                    | Descrição                            |
+| ------------ | --------------------------- | ------------------------------------ |
+| GET          | `/endereco/{id}`            | Retorna as informações do endereço   |
+| POST         | `/endereco`                 | Cria/cadastra um novo endereço       |
+| PUT          | `/endereco/{id}`            | Altera informações de um endereço    |   
+| DELETE       | `/endereco/{id}`            | Deleta um endereço                   |
 
 ## 🔃 Manipulação das Rotas de Alunos:
 
@@ -43,6 +62,17 @@ Modelagem original do projeto para Sistema Universitário onde adequamos ao MVP 
 | PUT          | `/aluno/{id}`               | Altera informações de um aluno       |
 | DELETE       | `/aluno/deletar-aluno/{id}` | Adiciona status de inativo ao aluno  |
 
+## 🔃 Manipulação das Rotas de Cursos:
+
+| Método HTTP  | Endpoint                    | Descrição                            |
+| ------------ | --------------------------- | ------------------------------------ |
+| GET          | `/cursos/todos-cursos`      | Retorna todos os cursos              |
+| GET          | `/cursos/{id}`              | Retorna as informações do curso      |
+| POST         | `/cursos/novo-curso`        | Cria/cadastra um novo curso          |
+| PUT          | `/cursos/{id}`              | Altera informações de um curso       |
+| DELETE       | `/cursos/deletar/{id}`      | Deleta um curso                      |
+| DELETE       | `/cursos/del-disciplina`    | Deleta o relacionamento de um curso  |
+|@RequestParam |`("idCurso")("idDisciplina")`| com uma disciplina                   |
 
 ## 🔃 Manipulação das Rotas de Disciplinas:
 

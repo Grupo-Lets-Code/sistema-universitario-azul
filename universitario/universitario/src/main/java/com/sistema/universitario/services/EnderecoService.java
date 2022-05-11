@@ -24,7 +24,7 @@ public class EnderecoService {
         }
     }
 
-    public Endereco updateEndereco(long id, Endereco endereco){
+    public Endereco updateEndereco(Long id, Endereco endereco){
         Endereco entidade = this.findEnderecoById(endereco.getId());
         entidade.setNum(endereco.getNum());
         entidade.setRua(endereco.getRua());
@@ -34,7 +34,7 @@ public class EnderecoService {
         return this.enderecoRepository.save(entidade);
     }
 
-    public void deleteEndereco(long id){
+    public void deleteEndereco(Long id){
         Endereco entidade = this.findEnderecoById(id);
         this.enderecoRepository.delete(entidade);
     }
@@ -43,7 +43,7 @@ public class EnderecoService {
         return this.enderecoRepository.findAll();
     }
 
-    public Endereco findEnderecoById(long id){
+    public Endereco findEnderecoById(Long id){
         return this.enderecoRepository.findById(id).orElseThrow(EnderecoInexistenteException::new);
     }
 }

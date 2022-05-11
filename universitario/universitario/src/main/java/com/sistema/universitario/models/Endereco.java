@@ -16,7 +16,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long id;
+    private Long id;
 
     @NotBlank(message = "Rua não informada")
     @Column(nullable = false)

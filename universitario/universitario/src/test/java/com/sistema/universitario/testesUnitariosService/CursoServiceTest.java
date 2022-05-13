@@ -100,6 +100,7 @@ public class CursoServiceTest {
         cursoAtual.setNomeCurso("Sistemas de Informação");
         cursoAtual.setTurno(oldCurso.getTurno());
 
+        when(cursoRepository.findById(oldCurso.getId())).thenReturn(Optional.of(oldCurso));
         when(cursoRepository.save(oldCurso)).thenReturn(cursoAtual);
 
         cursoAtual = cursoService.updateCurso(oldCurso.getId(), oldCurso);
@@ -144,6 +145,8 @@ public class CursoServiceTest {
         cursoAtualizado.setTurno(curso.getTurno());
         cursoAtualizado.getDisciplinas().add(disciplina);
 
+        when(cursoRepository.findById(curso.getId())).thenReturn(Optional.of(curso));
+        when(disciplinaRepository.findById(disciplina.getId())).thenReturn(Optional.of(disciplina));
         when(cursoRepository.save(curso)).thenReturn(cursoAtualizado);
 
         var cursoRetorno = cursoService.addCursoDisciplina(curso.getId(), disciplina.getId());

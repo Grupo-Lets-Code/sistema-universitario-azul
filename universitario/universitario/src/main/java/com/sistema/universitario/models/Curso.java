@@ -35,4 +35,10 @@ public class Curso implements Serializable{
         this.nomeCurso = nomeCurso;
         this.turno = turno;
     }
+
+    public Curso(Long id, String nomeCurso, Turno turno) {
+        this.id = id;
+        this.nomeCurso = nomeCurso;
+        this.turno = turno;
+    }
 }

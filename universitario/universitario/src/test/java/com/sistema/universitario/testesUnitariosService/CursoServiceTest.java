@@ -7,6 +7,7 @@ import com.sistema.universitario.repositories.CursoRepository;
 import com.sistema.universitario.repositories.DisciplinaRepository;
 import com.sistema.universitario.services.CursoService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,11 +29,20 @@ public class CursoServiceTest {
     @InjectMocks
     private CursoService cursoService;
 
+    Curso cursoTeste;
     @Mock
     private CursoRepository cursoRepository;
 
     @Mock
     private DisciplinaRepository disciplinaRepository;
+
+    @BeforeEach
+    void iniciaTestesEach(){
+        cursoTeste = new Curso();
+        cursoTeste.setNomeCurso("Análise e Desenvolvimento de Sistemas");
+        cursoTeste.setTurno(Turno.NOITE);
+
+    }
 
 
     @Test
@@ -55,6 +67,19 @@ public class CursoServiceTest {
         Assertions.assertEquals(cursoSave.getNomeCurso(), cursoRetorno.getNomeCurso());
         Assertions.assertEquals(cursoSave.getTurno(), cursoRetorno.getTurno());
     }
+   /* @Test
+    @DisplayName("verifica campo nulo na cricao de curso")
+    void verificaCampoDeNomeNuloEmCriacaoDeCurso(){
+       cursoTeste.setNomeCurso(null);
+
+       try{
+           var cursoSalvo = cursoService.saveCurso(cursoTeste);
+           fail("Erro: não validou os parâmetros");
+       } catch(Exception e){
+           assertEquals("Nome do curso não informado!", e.getMessage());
+       }
+
+    }*/
 
     @Test
     @DisplayName("teste listar todos os cursos")
@@ -85,6 +110,19 @@ public class CursoServiceTest {
 
         Assertions.assertNotNull(cursoRetorno);
         Assertions.assertEquals(curso.getId(), cursoRetorno.getId());
+    }
+
+    @Test
+    @DisplayName("verifica curso com id inexistente")
+    void verificaIdNuloDeCurso(){
+        cursoTeste.setId(1L);
+        when(cursoRepository.findById(cursoTeste.getId())).thenReturn(Optional.empty());
+        try {
+            cursoService.findCursoById(cursoTeste.getId());
+            fail("Deveria ter dado erro de id");
+        } catch (Exception e){
+            assertEquals("Curso não encontrado", e.getMessage());
+        }
     }
 
     @Test
@@ -157,6 +195,24 @@ public class CursoServiceTest {
     }
 
     @Test
+    @DisplayName("verifica disciplina existente por id")
+    void verifcaDisciplinaExistentePorId(){
+        cursoTeste.setId(20L);
+        var disciplina = new Disciplina();
+        disciplina.setId(1L);
+        disciplina.setNome("SIstemas Embarcados");
+
+        when(disciplinaRepository.findById(disciplina.getId())).thenReturn(Optional.empty());
+        when(cursoRepository.findById(cursoTeste.getId())).thenReturn(Optional.of(cursoTeste));
+        try{
+            cursoService.addCursoDisciplina(cursoTeste.getId(), disciplina.getId());
+            fail("Não deveria salvar disciplina");
+        } catch(Exception e){
+            assertEquals("Disciplina não encontrada", e.getMessage());
+        }
+    }
+
+    @Test
     @DisplayName("teste excluir disciplina de curso")
     void excluirDisciplinaCurso(){
         var curso = new Curso();
@@ -184,7 +240,7 @@ public class CursoServiceTest {
 
         Assertions.assertNotNull(cursoRetorno);
         Assertions.assertNotNull(cursoAtualizado);
-//        verify(cursoService, times(1)).deleteCursoDisciplina(curso.getId(), disciplina.getId());
+        verify(cursoRepository, times(1)).save(curso);
         Assertions.assertEquals(cursoAtualizado.getDisciplinas(), cursoRetorno.getDisciplinas());
     }
 }

@@ -16,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +29,10 @@ public class ProfessorServiceTest {
     @Mock
     private ProfessorRepository professorRepository;
 
-    Professor professor, professorAtualizado, professorDeletado;
+    Professor professor, professorAtualizado;
 
     @BeforeEach
-     void initProfessor() {
+    void initProfessor() {
         professor = new Professor();
         professor.setUsuario(new Usuario("teste@email.com", "123456"));
         professor.setId(123);
@@ -45,24 +43,15 @@ public class ProfessorServiceTest {
     }
 
     @BeforeEach
-     void attProfessor() {
+    void attProfessor() {
         professorAtualizado = new Professor();
+        professorAtualizado.setUsuario(professor.getUsuario());
         professorAtualizado.setId(professor.getId());
         professorAtualizado.setNome("Teste Atualizado");
         professorAtualizado.setCpf(professor.getCpf());
+        professorAtualizado.setEndereco(professor.getEndereco());
         professorAtualizado.setStatus(professor.getStatus());
     }
-
-    @BeforeEach
-     void delProfessor() {
-        initProfessor();
-        professorDeletado = new Professor();
-        professorDeletado.setId(professor.getId());
-        professorDeletado.setNome(professor.getNome());
-        professorDeletado.setCpf(professor.getCpf());
-        professorDeletado.setStatus(StatusUsuario.INATIVO);
-    }
-
 
     @Test
     @DisplayName("Teste listar todos - Professor")
@@ -130,41 +119,25 @@ public class ProfessorServiceTest {
     @Test
     @DisplayName("Teste atualizar - Professor")
     void atualizarProfessor() {
-        Mockito.when(professorRepository.save(professor))
-                .thenReturn(professorAtualizado);
+        Mockito.when(professorRepository.findById(professor.getId()))
+                .thenReturn(Optional.ofNullable(professor));
 
-        professorAtualizado = professorService.save(professor);
-        sendEmailAtt();
+        professorService.update(professor.getId(), professorAtualizado);
 
         Assertions.assertNotNull(professor);
         Assertions.assertNotNull(professorAtualizado);
-        Assertions.assertNotNull(professor.getNome(), professorAtualizado.getNome());
+        Assertions.assertEquals(professor.getId(), professorAtualizado.getId());
     }
 
     @Test
     @DisplayName("Teste deletar - Professor")
     void deletarProfessor() {
-        Mockito.when(professorRepository.save(professor))
-                .thenReturn(professorDeletado);
+        Mockito.when(professorRepository.findById(professor.getId()))
+                .thenReturn(Optional.ofNullable(professor));
 
-        professorDeletado = professorService.save(professor);
+        professorService.delete(professor.getId());
 
         Assertions.assertNotNull(professor);
-        Assertions.assertEquals(professor.getId(), professor.getId());
-        Assertions.assertEquals(StatusUsuario.ATIVO, professor.getStatus());
-
-        Assertions.assertNotNull(professorDeletado);
-        Assertions.assertEquals(professorDeletado.getId(), professorDeletado.getId());
-        Assertions.assertEquals(StatusUsuario.INATIVO, professorDeletado.getStatus());
-    }
-
-    void sendEmailAtt() {
-        System.out.println("\nE-mail: contato@universidadeazul.com " +
-                "\nPara: " + professor.getUsuario().getEmail() +
-                "\nAssunto: Alerta de alteração na conta" +
-                "\nMensagem: Nós da Universidade Azul informamos que, em " + LocalDate.now()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                + " sua conta teve uma alteração.\n"
-                + "Caso não tenha sido você, altere sua senha!");
+        Assertions.assertEquals(StatusUsuario.INATIVO, professor.getStatus());
     }
 }

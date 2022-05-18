@@ -1,15 +1,11 @@
 package com.sistema.universitario.models;
 
-import com.sistema.universitario.models.Disciplina;
-import com.sistema.universitario.models.Endereco;
-import com.sistema.universitario.models.Turma;
-import com.sistema.universitario.models.Usuario;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,4 +35,5 @@ public class Professor {
 
     @Enumerated(EnumType.STRING)
     private StatusUsuario status = StatusUsuario.ATIVO;
+
 }

@@ -15,12 +15,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class ProfessorServiceTest {
 
     @InjectMocks
@@ -83,11 +86,15 @@ public class ProfessorServiceTest {
 
         professoresAtivoList.add(
                 new Professor(2, (new Usuario()), "Professor Teste 2",
-                        "654321", (new Endereco()), StatusUsuario.INATIVO));
+                        "654321", (new Endereco()), StatusUsuario.ATIVO));
 
-        List<Professor> professores = professorService.findAllAtivos(String
+        Mockito.when(professorRepository.findBy("ATIVO"))
+                .thenReturn(professoresAtivoList);
+
+        professoresAtivoList = professorService.findAllAtivos(String
                 .valueOf(StatusUsuario.ATIVO));
-        Assertions.assertNotNull(professores);
+
+        Assertions.assertNotNull(professoresAtivoList);
     }
 
     @Test

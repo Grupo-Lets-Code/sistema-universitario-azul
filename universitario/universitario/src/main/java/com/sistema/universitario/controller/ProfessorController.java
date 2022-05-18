@@ -1,6 +1,7 @@
 package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Professor;
+import com.sistema.universitario.models.StatusUsuario;
 import com.sistema.universitario.services.ProfessorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

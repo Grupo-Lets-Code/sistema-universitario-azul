@@ -119,4 +119,25 @@ public class AlunoControllerTest {
                         Matchers.equalTo("Aluno(a) excluído(a) com sucesso!")));
     }
 
+    @Test
+    void atualizarComSucessoUmAluno() throws Exception{
+        var aluno = new Aluno(1L, (new Usuario()), "Professor Teste 1",
+                "123456", (new Endereco()), StatusUsuario.ATIVO);
+
+        var aluno2 = new Aluno(aluno.getId(), aluno.getUsuario(),
+                "Professor Teste 2", aluno.getCpf(), aluno.getEndereco(),
+                aluno.getStatus());
+
+        alunoService.update(aluno.getId(), aluno2);
+        String json = objectMapper.writeValueAsString(aluno2);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/aluno/atualizar/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8")
+                        .content(json).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",
+                        Matchers.equalTo("Aluno(a) atualizado(a) com sucesso!")));
+    }
+
 }

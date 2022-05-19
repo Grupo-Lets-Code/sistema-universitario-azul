@@ -36,7 +36,7 @@ public class AlunoController {
         return new ResponseEntity("Aluno(a) criado(a) com sucesso!", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<Aluno> update(@PathVariable Long id, @RequestBody Aluno aluno) {
             alunoService.update(id, aluno);
             return new ResponseEntity("Aluno(a) atualizado(a) com sucesso!", HttpStatus.OK);

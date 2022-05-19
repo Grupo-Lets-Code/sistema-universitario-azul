@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = ProfessorController.class)
-public class ProfessorControllerTest {
+public class ProfessorUnitarioControllerTest {
 
     @MockBean
     private ProfessorService professorService;

@@ -46,15 +46,15 @@ public class ProfessorControllerTest {
         List<Professor> professoresList = new ArrayList<>();
 
         professoresList.add(
-                new Professor(1, (new Usuario()), "Professor Teste 1",
+                new Professor(1L, (new Usuario()), "Professor Teste 1",
                         "123456", (new Endereco()), StatusUsuario.INATIVO));
 
         professoresList.add(
-                new Professor(2, (new Usuario()), "Professor Teste 2",
+                new Professor(2L, (new Usuario()), "Professor Teste 2",
                         "654321", (new Endereco()), StatusUsuario.INATIVO));
 
         professoresList.add(
-                new Professor(3, (new Usuario()), "Professor Teste 3",
+                new Professor(3L, (new Usuario()), "Professor Teste 3",
                         "010203", (new Endereco()), StatusUsuario.ATIVO));
 
         Mockito.when(professorService.findAll()).thenReturn(professoresList);
@@ -68,13 +68,13 @@ public class ProfessorControllerTest {
     void retornarSucessoBuscarTodosProfessoresAtivos() throws Exception {
         List<Professor> professoresAtivoList = new ArrayList<>();
 
-        professoresAtivoList.add(new Professor(1, (new Usuario()), "Professor Teste 1",
+        professoresAtivoList.add(new Professor(1L, (new Usuario()), "Professor Teste 1",
                         "123456", (new Endereco()), StatusUsuario.ATIVO));
 
-        professoresAtivoList.add(new Professor(2, (new Usuario()), "Professor Teste 2",
+        professoresAtivoList.add(new Professor(2L, (new Usuario()), "Professor Teste 2",
                         "654321", (new Endereco()), StatusUsuario.ATIVO));
 
-        professoresAtivoList.add(new Professor(3, (new Usuario()), "Professor Teste 3",
+        professoresAtivoList.add(new Professor(3L, (new Usuario()), "Professor Teste 3",
                         "010203", (new Endereco()), StatusUsuario.ATIVO));
 
         Mockito.when(professorService.findAllAtivos(String.valueOf(StatusUsuario.ATIVO)))
@@ -94,7 +94,7 @@ public class ProfessorControllerTest {
 
     @Test
     void cadastrarComSucessoUmProfessor() throws Exception{
-        var professor = new Professor(1, (new Usuario()), "Professor Teste 1",
+        var professor = new Professor(1L, (new Usuario()), "Professor Teste 1",
                 "123456", (new Endereco()), StatusUsuario.ATIVO);
 
         Mockito.when(professorService.save(ArgumentMatchers.any())).thenReturn(professor);
@@ -111,7 +111,7 @@ public class ProfessorControllerTest {
 
     @Test
     void atualizarComSucessoUmProfessor() throws Exception{
-        var professor = new Professor(1, (new Usuario()), "Professor Teste 1",
+        var professor = new Professor(1L, (new Usuario()), "Professor Teste 1",
                 "123456", (new Endereco()), StatusUsuario.ATIVO);
 
         var professor2 = new Professor(professor.getId(), professor.getUsuario(),
@@ -132,7 +132,7 @@ public class ProfessorControllerTest {
 
     @Test
     void deletarComSucessoUmProfessor() throws Exception{
-        var professor = new Professor(1, (new Usuario()), "Professor Teste 1",
+        var professor = new Professor(1L, (new Usuario()), "Professor Teste 1",
                 "123456", (new Endereco()), StatusUsuario.ATIVO);
 
         var professorDeletado = new Professor(professor.getId(), professor.getUsuario(),

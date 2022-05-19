@@ -38,7 +38,7 @@ public class ProfessorServiceTest {
     void initProfessor() {
         professor = new Professor();
         professor.setUsuario(new Usuario("teste@email.com", "123456"));
-        professor.setId(123);
+        professor.setId(123L);
         professor.setNome("Teste");
         professor.setCpf("12345");
         professor.setEndereco(new Endereco());
@@ -61,11 +61,11 @@ public class ProfessorServiceTest {
     void listarTodosProfessores() {
         List<Professor> professoresList = new ArrayList<>();
         professoresList.add(
-                new Professor(1, (new Usuario()), "Professor Teste",
+                new Professor(1L, (new Usuario()), "Professor Teste",
                         "123456", (new Endereco()), StatusUsuario.ATIVO));
 
         professoresList.add(
-                new Professor(2, (new Usuario()), "Professor Teste 2",
+                new Professor(2L, (new Usuario()), "Professor Teste 2",
                         "654321", (new Endereco()), StatusUsuario.ATIVO));
 
         Mockito.when(professorRepository.findAll())
@@ -81,11 +81,11 @@ public class ProfessorServiceTest {
     void listarProfessoresAtivos() {
         List<Professor> professoresAtivoList = new ArrayList<>();
         professoresAtivoList.add(
-                new Professor(1, (new Usuario()), "Professor Teste",
+                new Professor(1L, (new Usuario()), "Professor Teste",
                         "123456", (new Endereco()), StatusUsuario.ATIVO));
 
         professoresAtivoList.add(
-                new Professor(2, (new Usuario()), "Professor Teste 2",
+                new Professor(2L, (new Usuario()), "Professor Teste 2",
                         "654321", (new Endereco()), StatusUsuario.ATIVO));
 
         Mockito.when(professorRepository.findBy("ATIVO"))

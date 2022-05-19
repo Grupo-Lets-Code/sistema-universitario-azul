@@ -6,6 +6,7 @@ import com.sistema.universitario.models.StatusUsuario;
 import com.sistema.universitario.models.Usuario;
 import com.sistema.universitario.repositories.AlunoRepository;
 import com.sistema.universitario.services.AlunoService;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class AlunoServiceTest {
     void findALlAlunos() {
         List<Aluno> alunoList = new ArrayList<>();
         alunoList.add(
-                new Aluno(1, (new Usuario()), "Aluno Teste",
+                new Aluno(1L, (new Usuario()), "Aluno Teste",
                         "00000099910", (new Endereco()), StatusUsuario.ATIVO));
 
         when(alunoRepository.findAll())
@@ -56,7 +57,7 @@ public class AlunoServiceTest {
         alunoSave.setStatus(StatusUsuario.ATIVO);
 
         Aluno alunoReturn = new Aluno();
-        alunoReturn.setId(42);
+        alunoReturn.setId(42L);
         alunoReturn.setNome("Catrina");
         alunoReturn.setCpf("12345678901");
         alunoReturn.setStatus(StatusUsuario.ATIVO);
@@ -76,7 +77,7 @@ public class AlunoServiceTest {
     @DisplayName("Teste deletar - Aluno")
     void deleteAlunoStatus() {
         Aluno aluno = new Aluno();
-        aluno.setId(2);
+        aluno.setId(2L);
         aluno.setNome("JOAO");
         aluno.setCpf("33345678901");
         aluno.setStatus(StatusUsuario.ATIVO);
@@ -94,7 +95,7 @@ public class AlunoServiceTest {
     @DisplayName("Teste atualizar - Aluno")
     void updateAluno() {
         Aluno aluno = new Aluno();
-        aluno.setId(1);
+        aluno.setId(1L);
         aluno.setNome("Marcos");
 
         Aluno alunoNovo = new Aluno();
@@ -111,5 +112,36 @@ public class AlunoServiceTest {
         verify(alunoRepository).findById((long) 1);
 
     }
+    @Test
+    void validaRetornoUsuariosAtivos(){
+        List<Aluno> alunoList = new ArrayList<>();
+        alunoList.add(
+                new Aluno(1L, (new Usuario()), "Aluno Teste",
+                        "00000099910", (new Endereco()), StatusUsuario.ATIVO));
+        alunoList.add(
+                new Aluno(2L, (new Usuario()), "Aluno Teste 2",
+                "11111111111", (new Endereco()), StatusUsuario.ATIVO));
+        alunoList.add(
+                new Aluno(3L, (new Usuario()), "Aluno Teste 3",
+                "222222222222", (new Endereco()), StatusUsuario.INATIVO));
 
+        Aluno indice = new Aluno();
+
+        for (Aluno aluno:alunoList){
+            if (aluno.getStatus() == StatusUsuario.INATIVO){
+                indice = aluno;
+            }
+        }
+        alunoList.remove(indice);
+
+        when(alunoRepository.findBy("ATIVO"))
+                .thenReturn(alunoList);
+
+        var alunoListRetorno = alunoService.findAllAtivos("ATIVO");
+
+        Assertions.assertNotNull(alunoListRetorno);
+        Assertions.assertEquals(alunoList, alunoListRetorno);
+        Assertions.assertEquals(2, alunoListRetorno.size());
+
+    }
 }

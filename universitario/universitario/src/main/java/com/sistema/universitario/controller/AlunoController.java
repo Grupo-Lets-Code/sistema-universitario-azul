@@ -1,6 +1,7 @@
 package com.sistema.universitario.controller;
 
 import com.sistema.universitario.models.Aluno;
+import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.services.AlunoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class AlunoController {
         return this.alunoService.findAllAtivos("ATIVO");
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity save(@Valid @RequestBody Aluno aluno) {
         this.alunoService.save(aluno);
         return new ResponseEntity("Aluno(a) criado(a) com sucesso!", HttpStatus.CREATED);
@@ -44,6 +45,6 @@ public class AlunoController {
     @DeleteMapping("deletar-aluno/{idAluno}")
     public ResponseEntity deleteAluno(@PathVariable("idAluno") Long idAluno) {
         alunoService.deleteAlunoStatus(idAluno);
-        return new ResponseEntity("Aluno(a) excluído(a) da turma com sucesso!", HttpStatus.OK);
+        return new ResponseEntity("Aluno(a) excluído(a) com sucesso!", HttpStatus.OK);
     }
 }

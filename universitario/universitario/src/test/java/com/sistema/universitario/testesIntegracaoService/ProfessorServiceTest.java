@@ -34,7 +34,8 @@ public class ProfessorServiceTest {
 
     @Test
     void listarTodosProfessoresAtivos() {
-        List<Professor> professores = professorService.findAllAtivos(String.valueOf(StatusUsuario.ATIVO));
+        List<Professor> professores = professorService.findAllAtivos(
+                String.valueOf(StatusUsuario.ATIVO));
         Assertions.assertNotNull(professores);
     }
 
@@ -42,6 +43,7 @@ public class ProfessorServiceTest {
     void salvarProfessor() {
         var catchUserId = usuarioService.findById(1L);
         var catchEndId = enderecoService.findEnderecoById(1L);
+
         professor = new Professor();
         professor.setUsuario(catchUserId);
         professor.setNome("Teste Integracao");
@@ -49,19 +51,31 @@ public class ProfessorServiceTest {
         professor.setEndereco(catchEndId);
         professor.setStatus(StatusUsuario.ATIVO);
         professorService.save(professor);
+
+        Assertions.assertNotNull(catchUserId);
+        Assertions.assertNotNull(catchEndId);
+        Assertions.assertNotNull(professor);
     }
 
     @Test
     void atualizarProfessor() {
         var professor = professorService.findById(1L);
+
         professor.setNome("Integracao Atualizado");
         professorService.update(professor.getId(), professor);
+
+        Assertions.assertNotNull(professor);
+        Assertions.assertEquals(professor.getNome(), professor.getNome());
     }
 
     @Test
     void deletarProfessor() {
         var professor = professorService.findById(1L);
+
         professor.setStatus(StatusUsuario.INATIVO);
         professorService.delete(professor.getId());
+
+        Assertions.assertNotNull(professor);
+        Assertions.assertEquals(StatusUsuario.INATIVO, professor.getStatus());
     }
 }

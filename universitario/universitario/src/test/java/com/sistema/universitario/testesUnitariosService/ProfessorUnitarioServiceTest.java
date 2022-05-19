@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class ProfessorServiceTest {
+public class ProfessorUnitarioServiceTest {
 
     @InjectMocks
     private ProfessorService professorService;

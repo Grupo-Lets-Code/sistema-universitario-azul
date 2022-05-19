@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProfessorServiceTest {
+public class ProfessorIntegracaoServiceTest {
 
     @Autowired
     ProfessorService professorService;

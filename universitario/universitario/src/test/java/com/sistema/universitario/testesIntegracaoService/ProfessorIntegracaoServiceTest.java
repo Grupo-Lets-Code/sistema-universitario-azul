@@ -47,7 +47,7 @@ public class ProfessorIntegracaoServiceTest {
         professor = new Professor();
         professor.setUsuario(catchUserId);
         professor.setNome("Teste Integracao");
-        professor.setCpf("123456");
+        professor.setCpf("12345678921");
         professor.setEndereco(catchEndId);
         professor.setStatus(StatusUsuario.ATIVO);
         professorService.save(professor);

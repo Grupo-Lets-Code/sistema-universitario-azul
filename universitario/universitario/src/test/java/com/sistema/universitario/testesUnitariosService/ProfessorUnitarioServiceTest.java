@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class ProfessorUnitarioServiceTest {
@@ -147,4 +149,18 @@ public class ProfessorUnitarioServiceTest {
         Assertions.assertNotNull(professor);
         Assertions.assertEquals(StatusUsuario.INATIVO, professor.getStatus());
     }
+
+    @Test
+    @DisplayName("Teste id inexistente - Professor")
+    void idInexistenteProfessor() {
+        professor.setId(1L);
+        Mockito.when(professorRepository.findById(professor.getId())).thenReturn(Optional.empty());
+        try {
+            professorService.findById(professor.getId());
+            Assertions.fail("Esperado erro de ID");
+        } catch (Exception e){
+            assertEquals("Professor(a) não encontrado(a)", e.getMessage());
+        }
+    }
+
 }

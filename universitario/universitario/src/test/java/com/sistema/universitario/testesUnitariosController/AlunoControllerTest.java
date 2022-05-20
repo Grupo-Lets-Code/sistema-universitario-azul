@@ -56,7 +56,9 @@ public class AlunoControllerTest {
                 .thenReturn(alunosAtivoList);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/aluno/aluno-ativo"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].status",
+                        Matchers.equalTo(String.valueOf(StatusUsuario.ATIVO))));
     }
 
     @Test
@@ -78,7 +80,8 @@ public class AlunoControllerTest {
         Mockito.when(alunoService.findAll()).thenReturn(AlunosList);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/aluno/todos-alunos"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(3)));
     }
 
     @Test

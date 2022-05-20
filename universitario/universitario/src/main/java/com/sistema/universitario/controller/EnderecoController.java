@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/endereco")
 @Slf4j
 public class EnderecoController {
@@ -47,14 +47,14 @@ public class EnderecoController {
     @PutMapping("{id}")
     public ResponseEntity atualizarEndereco(@PathVariable("id") Long id, @RequestBody Endereco endereco){
         this.enderecoService.updateEndereco(id, endereco);
-        ResponseEntity response = new ResponseEntity("Endereço atualizado com sucesso", HttpStatus.OK);
+        ResponseEntity response = new ResponseEntity("Endereco atualizado com sucesso", HttpStatus.OK);
         return response;
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity deletarEndereco(@PathVariable("id") Long id){
         this.enderecoService.deleteEndereco(id);
-        return ResponseEntity.ok("Endereço deletado com sucesso");
+        return ResponseEntity.ok("Endereco deletado com sucesso");
     }
 
 }

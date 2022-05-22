@@ -214,7 +214,7 @@ public class EnderecoServiceTest {
             enderecoService.saveEndereco(endereco1);
             Assertions.fail();
         } catch (EnderecoJaCadastradoException e) {
-            Assertions.assertEquals("Endereço já cadastrado no sistema", e.getMessage());
+            Assertions.assertEquals("Endereco ja cadastrado no sistema", e.getMessage());
         }
 
     }

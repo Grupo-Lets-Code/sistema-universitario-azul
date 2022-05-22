@@ -29,7 +29,7 @@ public class Aluno {
     @NotBlank(message = "Nome não informado")
     private String nome;
 
-    @Column (name = "CPF", unique = true)
+    @Column (name = "CPF")
     @NotBlank(message = "CPF não informado")
     private String cpf;
 

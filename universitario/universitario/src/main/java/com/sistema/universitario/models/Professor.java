@@ -26,7 +26,7 @@ public class Professor {
     @Column (name = "NOME")
     private String nome;
 
-    @Column (name = "CPF", unique = true)
+    @Column (name = "CPF")
     private String cpf;
 
     @OneToOne

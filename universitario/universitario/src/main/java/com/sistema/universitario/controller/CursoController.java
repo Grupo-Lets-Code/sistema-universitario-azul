@@ -24,9 +24,9 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable("id") Long id){
+    public ResponseEntity<Curso> getById(@PathVariable("id") Long id){
         var curso = this.cursoService.findCursoById(id);
-        return new ResponseEntity(curso, HttpStatus.FOUND);
+            return new ResponseEntity(curso, HttpStatus.FOUND);
     }
 
     @PostMapping("/novo-curso")
@@ -58,6 +58,6 @@ public class CursoController {
     public ResponseEntity addCursoDisciplina(@RequestParam("idCurso") Long idCurso,
                                                 @RequestParam("idDisciplina") Long idDisciplina) {
         var curso = cursoService.addCursoDisciplina(idCurso, idDisciplina);
-        return new ResponseEntity("Disciplina adiciona no curso " + curso.getNomeCurso() + "com sucesso!", HttpStatus.OK);
+        return new ResponseEntity("Disciplina adicionado no curso " + curso.getNomeCurso() + " com sucesso!", HttpStatus.OK);
     }
 }

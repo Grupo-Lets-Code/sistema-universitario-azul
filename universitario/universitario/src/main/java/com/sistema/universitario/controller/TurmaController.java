@@ -34,7 +34,7 @@ public class TurmaController {
 
     @PostMapping("/salvar-turma")
     public ResponseEntity saveTurma(@RequestBody Turma turma) {
-        turmaService.save(turma);
+        turmaService.saveTurma(turma);
         return new ResponseEntity("Turma criada com sucesso!", HttpStatus.CREATED);
     }
 

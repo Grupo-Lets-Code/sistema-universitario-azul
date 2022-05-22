@@ -36,9 +36,8 @@ public class TurmaService {
         return turmaRepository.findById(idTurma).orElseThrow(TurmaNaoEncontradaException::new);
     }
 
-    public Turma save(Turma turma) {
-        turmaRepository.save(turma);
-        return turma;
+    public Turma saveTurma(Turma turma) {
+        return turmaRepository.save(turma);
     }
 
     public Turma updateNomeTurma(Long idTurma, String nomeTurma) {
@@ -58,7 +57,7 @@ public class TurmaService {
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
         Turma turma = this.findTurmaById(idTurma);
         turma.getAluno().add(aluno);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 
@@ -66,7 +65,7 @@ public class TurmaService {
         var aluno = alunoRepository.findById(idAluno).orElseThrow(AlunoNaoEncontradoException::new);
         Turma turma = this.findTurmaById(idTurma);
         turma.getAluno().remove(aluno);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 
@@ -74,7 +73,7 @@ public class TurmaService {
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
         Turma turma = findTurmaById(idTurma);
         turma.getProfessor().add(professor);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 
@@ -82,7 +81,7 @@ public class TurmaService {
         var professor = professorRepository.findById(idProfessor).orElseThrow(ProfessorNaoEncontradoException::new);
         Turma turma = findTurmaById(idTurma);
         turma.getProfessor().remove(professor);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 
@@ -90,7 +89,7 @@ public class TurmaService {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
         Turma turma = findTurmaById(idTurma);
         turma.getDisciplina().add(disciplina);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 
@@ -98,7 +97,7 @@ public class TurmaService {
         var disciplina = disciplinaRepository.findById(idDisciplina).orElseThrow(DisciplinaNaoEncontradaException::new);
         Turma turma = findTurmaById(idTurma);
         turma.getDisciplina().remove(disciplina);
-        this.save(turma);
+        this.saveTurma(turma);
         return turma;
     }
 

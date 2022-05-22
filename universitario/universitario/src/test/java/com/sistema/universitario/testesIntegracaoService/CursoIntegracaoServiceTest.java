@@ -85,7 +85,7 @@ public class CursoIntegracaoServiceTest {
 
     @Test @Transactional
     void buscarCursoPorId(){
-        var curso = cursoService.findCursoById(1L);
+        var curso = cursoService.findCursoById(2L);
 
         assertNotNull(curso);
         assertNotNull(curso.getNomeCurso());
@@ -94,7 +94,7 @@ public class CursoIntegracaoServiceTest {
     void deveRetornarErroAoBuscarCurso(){
 
         try{
-           cursoService.findCursoById(4L);
+           cursoService.findCursoById(100L);
             fail("Deveria dar erro!");
         } catch (Exception e) {
             assertTrue(true);
@@ -104,16 +104,16 @@ public class CursoIntegracaoServiceTest {
 
     @Test @Transactional
     void deveAtualizarDadosDeUmCurso(){
-        var curso = cursoService.findCursoById(1L);
+        var curso = cursoService.findCursoById(2L);
         var nomeCursoAntigo = curso.getNomeCurso();
         var turnoCursoAntigo = curso.getTurno();
 
         curso.setNomeCurso("Engenharia da Computação");
-        curso.setTurno(Turno.TARDE);
+        curso.setTurno(Turno.MANHA);
 
-        cursoService.updateCurso(1L, curso);
+        cursoService.updateCurso(2L, curso);
 
-        var cursoAtualizado = cursoService.findCursoById(1L);
+        var cursoAtualizado = cursoService.findCursoById(2L);
 
         assertNotNull(curso);
         assertNotNull(cursoAtualizado);
@@ -123,7 +123,7 @@ public class CursoIntegracaoServiceTest {
 
     @Test @Transactional
     void excluirCursoTesteIntegracao(){
-        var curso = cursoService.findCursoById(1L);
+        var curso = cursoService.findCursoById(2L);
 
         assertNotNull(curso);
 
@@ -151,7 +151,7 @@ public class CursoIntegracaoServiceTest {
     @Test @Transactional
     void testeInclusaoDeDisciplinaEmCurso(){
         var disciplina = disciplinaService.findById(3L);
-        var curso = cursoService.findCursoById(1L);
+        var curso = cursoService.findCursoById(2L);
         assertNotNull(disciplina);
         assertNotNull(curso);
         cursoService.addCursoDisciplina(curso.getId(), disciplina.getId());
@@ -165,7 +165,7 @@ public class CursoIntegracaoServiceTest {
     @Test @Transactional
     void testeExclusaoDeDisciplinaEmCurso(){
         var disciplina = disciplinaService.findById(3L);
-        var curso = cursoService.findCursoById(1L);
+        var curso = cursoService.findCursoById(2L);
         assertNotNull(disciplina);
         assertNotNull(curso);
 

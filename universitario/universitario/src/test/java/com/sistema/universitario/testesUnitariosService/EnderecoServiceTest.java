@@ -212,9 +212,25 @@ public class EnderecoServiceTest {
 
         try{
             enderecoService.saveEndereco(endereco1);
-            Assertions.fail();
+            Assertions.fail("Deveria dar EnderecoJaCadastradoException");
         } catch (EnderecoJaCadastradoException e) {
             Assertions.assertEquals("Endereco ja cadastrado no sistema", e.getMessage());
+        }
+
+    }
+
+    @Test
+    @DisplayName("Teste - EnderecoInexistenteException")
+    void enderecoInexistenteException(){
+
+        Mockito.when(enderecoRepository.findById(15L))
+                .thenReturn(Optional.empty());
+
+        try{
+            enderecoService.findEnderecoById(15L);
+            Assertions.fail("Deveria dar EnderecoInexistenteException");
+        } catch(EnderecoInexistenteException e){
+            Assertions.assertEquals("Endereco nao encontrado", e.getMessage());
         }
 
     }

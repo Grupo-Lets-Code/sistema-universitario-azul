@@ -8,6 +8,7 @@ INSERT INTO USUARIO (EMAIL, PASSWORD) VALUES ('henrique@email.com', '123456');
 INSERT INTO USUARIO (EMAIL, PASSWORD) VALUES ('josedesouza@email.com', '123456');
 INSERT INTO USUARIO (EMAIL, PASSWORD) VALUES ('antoniosantos@email.com', '123456');
 INSERT INTO USUARIO (EMAIL, PASSWORD) VALUES ('joaosilva@email.com', '123456');
+INSERT INTO USUARIO (EMAIL, PASSWORD) VALUES ('teste@teste.com', '123456');
 
 -- Inserindo 9 enderecos
 INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Teste 1', '01', 'São Paulo', 'Bairro Teste 1', '12345678', 1);
@@ -20,6 +21,7 @@ INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Te
 INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Teste 7', '07', 'Carapicuiba', 'Bairro Teste 7', '12345678', 7);
 INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Teste 8', '08', 'São Bernardo do Canpo', 'Bairro Teste 8', '12345678', 8);
 INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Teste 9', '09', 'Guarulhos', 'Bairro Teste 9', '12345678', 9);
+INSERT INTO ENDERECO (RUA, NUM, CIDADE, BAIRRO, CEP, USUARIO_ID) VALUES ('Rua Teste 10', '10', 'Ponta Grossa', 'Bairro Teste 10', '12345678', 10);
 
 -- Inserindo 3 cursos
 INSERT INTO CURSO (NOME_CURSO, TURNO) VALUES ('Administracao', 'MANHA');

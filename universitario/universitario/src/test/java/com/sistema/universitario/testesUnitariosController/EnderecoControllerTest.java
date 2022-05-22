@@ -2,6 +2,7 @@ package com.sistema.universitario.testesUnitariosController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sistema.universitario.controller.EnderecoController;
+import com.sistema.universitario.exceptions.endereco.EnderecoInexistenteException;
 import com.sistema.universitario.exceptions.endereco.EnderecoJaCadastradoException;
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.services.EnderecoService;
@@ -183,8 +184,6 @@ public class EnderecoControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsBytes(enderecoNovo))
-                                .characterEncoding("utf-8")
-                //FIXME verificar o tipo de encoding do projeto
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
@@ -241,6 +240,23 @@ public class EnderecoControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andExpect(result -> Assertions.assertTrue(result.getResolvedException() instanceof EnderecoJaCadastradoException));
+    }
+
+    @Test
+    void testEnderecoInexistenteException() throws Exception{
+
+        Mockito.when(enderecoService.findEnderecoById(15L))
+                .thenThrow(EnderecoInexistenteException.class);
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get("/endereco/15")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(result -> Assertions.assertTrue(result.getResolvedException() instanceof EnderecoInexistenteException));
+
     }
 
 }

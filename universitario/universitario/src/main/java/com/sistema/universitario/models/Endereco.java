@@ -1,14 +1,15 @@
 package com.sistema.universitario.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
-@EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Getter
 @Setter
 @Entity
@@ -43,4 +44,16 @@ public class Endereco {
     @JoinColumn(name="Usuario_ID", nullable = false)
     private Usuario usuario;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Endereco endereco = (Endereco) o;
+        return id != null && Objects.equals(id, endereco.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

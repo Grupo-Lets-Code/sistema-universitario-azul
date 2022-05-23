@@ -3,10 +3,7 @@ package com.sistema.universitario.testesUnitariosController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sistema.universitario.controller.TurmaController;
-import com.sistema.universitario.models.Aluno;
-import com.sistema.universitario.models.Disciplina;
-import com.sistema.universitario.models.Professor;
-import com.sistema.universitario.models.Turma;
+import com.sistema.universitario.models.*;
 import com.sistema.universitario.services.TurmaService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,14 +19,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @ContextConfiguration
@@ -155,23 +151,104 @@ public class TurmaControllerTest {
 
     @Test
     @DisplayName("Teste: TURMA06 - Adicionar turma_aluno")
-    void addTurmaAlunoTest() {
+    void addTurmaAlunoTest() throws Exception {
 
+        Aluno aluno0 = new Aluno(5L, new Usuario(), "Aluno teste 0", "00011122233", new Endereco(), StatusUsuario.ATIVO);
 
+        when(turmaService.addTurmaAluno(turmaBase.getId(), aluno0.getId()))
+            .thenReturn(turmaBase);
 
-
-
-
+        mockMvc.perform(post("/turmas/add-turma-aluno/" + turmaBase.getId() + "/" + aluno0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Aluno inserido na turma com sucesso!")));
 
 
     }
 
+    @Test
+    @DisplayName("Teste: TURMA07 - Remover turma_aluno")
+    void removeTurmaAlunoTest() throws Exception {
 
+        Aluno aluno0 = new Aluno(5L, new Usuario(), "Aluno teste 0", "00011122233", new Endereco(), StatusUsuario.ATIVO);
 
+        when(turmaService.removeTurmaAluno(turmaBase.getId(), aluno0.getId()))
+            .thenReturn(turmaBase);
 
+        mockMvc.perform(delete("/turmas/remove-turma-aluno/" + turmaBase.getId() + "/" + aluno0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Aluno removido da turma com sucesso!")));
 
+    }
 
+    @Test
+    @DisplayName("Teste: TURMA08 - Adicionar turma_professor")
+    void addTurmaProfessorTest() throws Exception {
 
+        Professor professor0 = new Professor(5L, new Usuario(), "Professor teste 0", "00011122233", new Endereco(), StatusUsuario.ATIVO);
 
+        when(turmaService.addTurmaProfessor(turmaBase.getId(), professor0.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(post("/turmas/add-turma-professor/" + turmaBase.getId() + "/" + professor0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Professor inserido na turma com sucesso!")));
+
+    }
+    @Test
+    @DisplayName("Teste: TURMA09 - Remover turma_professor")
+    void removeTurmaProfessorTest() throws Exception {
+
+        Professor professor0 = new Professor(5L, new Usuario(), "Professor teste 0", "00011122233", new Endereco(), StatusUsuario.ATIVO);
+
+        when(turmaService.removeTurmaProfessor(turmaBase.getId(), professor0.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(delete("/turmas/remove-turma-professor/" + turmaBase.getId() + "/" + professor0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Professor removido da turma com sucesso!")));
+
+    }
+
+    @Test
+    @DisplayName("Teste: TURMA10 - Adicionar turma_disciplina")
+    void addTurmaDisciplinaTest() throws Exception {
+
+        Disciplina disciplina0 = new Disciplina(5L, "Disciplina teste 0", new ArrayList<Professor>());
+
+        when(turmaService.addTurmaDisciplina(turmaBase.getId(), disciplina0.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(post("/turmas/add-turma-disciplina/" + turmaBase.getId() + "/" + disciplina0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Disciplina inserida na turma com sucesso!")));
+
+    }
+
+    @Test
+    @DisplayName("Teste: TURMA11 - Remover turma_disciplina")
+    void removeTurmaDisciplinaTest() throws Exception {
+
+        Disciplina disciplina0 = new Disciplina(5L, "Disciplina teste 0", new ArrayList<Professor>());
+
+        when(turmaService.removeTurmaDisciplina(turmaBase.getId(), disciplina0.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(delete("/turmas/remove-turma-disciplina/" + turmaBase.getId() + "/" + disciplina0.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Disciplina removida da turma com sucesso!")));
+
+    }
 
 }

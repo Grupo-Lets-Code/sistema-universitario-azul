@@ -27,7 +27,7 @@ public class TurmaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getTurmasById(@PathVariable("id") Long id){
+    public ResponseEntity getTurmaById(@PathVariable("id") Long id){
         var turma = this.turmaService.findTurmaById(id);
         return new ResponseEntity(turma, HttpStatus.FOUND);
     }
@@ -47,7 +47,7 @@ public class TurmaController {
     @DeleteMapping("/remove-turma/{id}")
     public ResponseEntity deleteTurma(@PathVariable Long id) {
         Turma turma = turmaService.deleteTurma(id);
-        return new ResponseEntity(turma, HttpStatus.OK);
+        return new ResponseEntity("Turma removida com sucesso!", HttpStatus.OK);
     }
 
     @PostMapping("/add-turma-aluno/{idTurma}/{idAluno}")

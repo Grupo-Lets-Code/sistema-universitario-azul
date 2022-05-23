@@ -23,8 +23,8 @@ public class DisciplinaService {
         return disciplinaRepository.findAll();
     }
 
-    public void save(Disciplina disciplina) {
-        disciplinaRepository.save(disciplina);
+    public Disciplina save(Disciplina disciplina) {
+        return disciplinaRepository.save(disciplina);
     }
 
     public void update(Long id, Disciplina disciplinaRequest) {

@@ -193,6 +193,8 @@ public class EnderecoControllerTest {
     @Test
     void deletarEnderecoTest() throws Exception {
 
+        //O processo de delete apenas funciona com o ID 10 e os ids criados
+
         Endereco endereco = new Endereco();
         endereco.setId(1L);
         endereco.setCep("12777665");

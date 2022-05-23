@@ -171,6 +171,8 @@ public class EnderecoServiceTest {
     @DisplayName("Teste - Deletar Endereço")
     void deleteEndereco(){
 
+        //O processo de delete apenas funciona com o ID 10 e os ids criados
+
         Endereco endereco1 = new Endereco();
         endereco1.setId(1L);
         endereco1.setCep("12352650");

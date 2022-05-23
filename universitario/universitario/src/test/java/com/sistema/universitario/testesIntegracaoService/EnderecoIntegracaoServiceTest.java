@@ -117,6 +117,8 @@ public class EnderecoIntegracaoServiceTest {
     @Transactional
     void deleteEnderecoIntegTest(){
 
+        //O processo de delete apenas funciona com o ID 10 e os ids criados
+
         List<Endereco> enderecosIniciais = enderecoService.listAll();
 
         enderecoService.deleteEndereco(10L);

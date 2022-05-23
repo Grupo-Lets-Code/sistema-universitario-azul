@@ -17,7 +17,6 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
     @NotBlank(message = "Rua não informada")
@@ -50,10 +49,5 @@ public class Endereco {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Endereco endereco = (Endereco) o;
         return id != null && Objects.equals(id, endereco.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

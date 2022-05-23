@@ -1,7 +1,6 @@
 package com.sistema.universitario.advices;
 
 import com.sistema.universitario.exceptions.endereco.EnderecoInexistenteException;
-import com.sistema.universitario.exceptions.endereco.EnderecoJaCadastradoException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +22,6 @@ public class EnderecoAdvice {
     @ExceptionHandler
     public ResponseEntity trataEnderecoInexistente(EnderecoInexistenteException e){
         ResponseEntity response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        return response;
-    }
-
-    @ExceptionHandler
-    public ResponseEntity trataEnderecoJaCadastrado(EnderecoJaCadastradoException e){
-        ResponseEntity response = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         return response;
     }
 

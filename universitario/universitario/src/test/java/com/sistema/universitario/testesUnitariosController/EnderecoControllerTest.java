@@ -3,7 +3,6 @@ package com.sistema.universitario.testesUnitariosController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sistema.universitario.controller.EnderecoController;
 import com.sistema.universitario.exceptions.endereco.EnderecoInexistenteException;
-import com.sistema.universitario.exceptions.endereco.EnderecoJaCadastradoException;
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.services.EnderecoService;
 import org.junit.jupiter.api.Assertions;
@@ -215,31 +214,6 @@ public class EnderecoControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().string("Endereco deletado com sucesso"));
 
-    }
-
-    @Test
-    void testEnderecoNaoEncontradoException() throws Exception{
-
-        Endereco endereco = new Endereco();
-        endereco.setId(1L);
-        endereco.setCep("12777665");
-        endereco.setCidade("São Paulo");
-        endereco.setRua("Avenida Pequena");
-        endereco.setBairro("Paulista");
-        endereco.setNum("152");
-
-        Mockito.when(enderecoService.saveEndereco(endereco))
-                .thenThrow(EnderecoJaCadastradoException.class);
-
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders.post("/endereco")
-                                .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsBytes(endereco))
-                )
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
-                .andExpect(result -> Assertions.assertTrue(result.getResolvedException() instanceof EnderecoJaCadastradoException));
     }
 
     @Test

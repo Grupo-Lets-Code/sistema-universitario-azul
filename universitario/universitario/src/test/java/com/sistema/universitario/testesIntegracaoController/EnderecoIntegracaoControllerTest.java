@@ -126,6 +126,8 @@ public class EnderecoIntegracaoControllerTest {
     @Test
     void deletarEndereco(){
 
+        //O processo de delete apenas funciona com o ID 10 e os ids criados
+
         HttpHeaders httpHeaders = new HttpHeaders();
         HttpEntity<Endereco> httpEntity = new HttpEntity<>(httpHeaders);
 

@@ -18,31 +18,31 @@ public class DisciplinaController {
         this.disciplinaService = disciplinaService;
     }
 
-    @GetMapping
+    @GetMapping("/listar-todas")
     public List<Disciplina> getAll() {
         return disciplinaService.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity save(@Valid @RequestBody Disciplina disciplina) {
         this.disciplinaService.save(disciplina);
         return new ResponseEntity("Disciplina criada com sucesso!", HttpStatus.CREATED);
     }
 
-    @PutMapping({"id"})
+    @PutMapping({"/atualizar/{id}"})
     public ResponseEntity update(@PathVariable("id") Long idDisciplina,
                                            @RequestBody Disciplina disciplina) {
         disciplinaService.update(idDisciplina, disciplina);
         return new ResponseEntity("Disciplina alterada com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
         disciplinaService.delete(id);
         return new ResponseEntity("Disciplina excluída com sucesso!", HttpStatus.OK);
     }
 
-    @DeleteMapping("deletar-professor/{idProfessor}/{idDisciplina}")
+    @DeleteMapping("/deletar-professor/{idProfessor}/{idDisciplina}")
     public ResponseEntity deleteProfessorDisciplina(@PathVariable("idProfessor") Long idProfessor,
                                                     @PathVariable("idDisciplina") Long idDisciplina) {
         disciplinaService.deleteProfessorDisciplina(idProfessor, idDisciplina);

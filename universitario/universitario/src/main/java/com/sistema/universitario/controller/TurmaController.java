@@ -27,7 +27,7 @@ public class TurmaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getTurmasById(@PathVariable("id") Long id){
+    public ResponseEntity getTurmaById(@PathVariable("id") Long id){
         var turma = this.turmaService.findTurmaById(id);
         return new ResponseEntity(turma, HttpStatus.FOUND);
     }

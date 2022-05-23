@@ -35,10 +35,13 @@ public class ProfessorIntegracaoControllerTest {
         HttpHeaders httpHeaders = new HttpHeaders();
         HttpEntity<Professor> httpEntity = new HttpEntity<>(httpHeaders);
 
-        ResponseEntity<String> response = this.restTemplate
-                .exchange("/professor/listar-todos", HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<Professor[]> response = this.restTemplate
+                .exchange("/professor/listar-todos", HttpMethod.GET, httpEntity, Professor[].class);
 
         Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertNotNull(response.getBody()[0].getNome());
+        Assertions.assertNotNull(response.getBody()[0].getCpf());
     }
 
     @Test
@@ -46,10 +49,12 @@ public class ProfessorIntegracaoControllerTest {
         HttpHeaders httpHeaders = new HttpHeaders();
         HttpEntity<Professor> httpEntity = new HttpEntity<>(httpHeaders);
 
-        ResponseEntity<String> response = this.restTemplate
-                .exchange("/professor/listar-ativos", HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<Professor[]> response = this.restTemplate
+                .exchange("/professor/listar-ativos", HttpMethod.GET, httpEntity, Professor[].class);
 
         Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(StatusUsuario.ATIVO, response.getBody()[0].getStatus());
     }
 
     @Test

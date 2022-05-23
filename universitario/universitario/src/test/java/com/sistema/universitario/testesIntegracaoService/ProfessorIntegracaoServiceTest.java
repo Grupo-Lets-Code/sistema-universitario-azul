@@ -58,6 +58,19 @@ public class ProfessorIntegracaoServiceTest {
     }
 
     @Test
+    void nomeProfessorObrigatorio(){
+        var professor = new Professor();
+        professor.setNome(null);
+        try{
+            professorService.save(professor);
+            Assertions.fail("Deve retornar erro");
+        } catch (Exception e){
+            Assertions.assertTrue(true);
+            Assertions.assertTrue(e.getMessage().contains("Nome do professor não informado!"));
+        }
+    }
+
+    @Test
     void atualizarProfessor() {
         var professor = professorService.findById(1L);
 
@@ -77,5 +90,33 @@ public class ProfessorIntegracaoServiceTest {
 
         Assertions.assertNotNull(professor);
         Assertions.assertEquals(StatusUsuario.INATIVO, professor.getStatus());
+    }
+
+    @Test
+    void erroDeletarProfessorInexistente(){
+        try{
+            professorService.delete(999L);
+            Assertions.fail("Deve retornar erro!");
+        } catch (Exception e) {
+            Assertions.assertTrue(true);
+            Assertions.assertTrue(e.getMessage().contains("Professor(a) não encontrado(a)"));
+        }
+    }
+
+    @Test
+    void buscarProfessorPorId() {
+        var professor = professorService.findById(1L);
+        Assertions.assertNotNull(professor);
+    }
+
+    @Test
+    void erroBuscarProfessorInexistente(){
+        try{
+            professorService.findById(999L);
+            Assertions.fail("Deve retornar erro!");
+        } catch (Exception e) {
+            Assertions.assertTrue(true);
+            Assertions.assertTrue(e.getMessage().contains("Professor(a) não encontrado(a)"));
+        }
     }
 }

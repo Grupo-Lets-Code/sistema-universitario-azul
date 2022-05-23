@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,9 +25,11 @@ public class Professor {
     private Usuario usuario;
 
     @Column (name = "NOME")
+    @NotBlank(message = "Nome do professor não informado!")
     private String nome;
 
     @Column (name = "CPF")
+    @NotBlank(message = "CPF do professor não informado!")
     private String cpf;
 
     @OneToOne

@@ -10,6 +10,7 @@ import com.sistema.universitario.models.Turma;
 import com.sistema.universitario.services.TurmaService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +49,7 @@ public class TurmaControllerTest {
     Turma turmaBase, turmaBase2;
 
     @BeforeEach
-    void initTurmas() {
+    void initTurma() {
 
         turmaBase = new Turma();
         turmaBase.setId(10L);
@@ -58,12 +58,13 @@ public class TurmaControllerTest {
         turmaBase.setProfessor(new ArrayList<Professor>());
         turmaBase.setDisciplina(new ArrayList<Disciplina>());
 
-        turmaBase2 = new Turma(11L, "Turma E5", new ArrayList<Professor>(), new ArrayList<Aluno>(), new ArrayList<Disciplina>());
-
     }
 
     @Test
+    @DisplayName("Teste: TURMA01 - Recuperar lista de turmas")
     void getAllTurmasTest() throws Exception {
+
+        turmaBase2 = new Turma(11L, "Turma E5", new ArrayList<Professor>(), new ArrayList<Aluno>(), new ArrayList<Disciplina>());
 
         List<Turma> listaTurmasTest = new ArrayList<>();
 
@@ -80,6 +81,7 @@ public class TurmaControllerTest {
     }
 
     @Test
+    @DisplayName("Teste: TURMA02 - Recuperar turma por id")
     void getTurmaByIdTest() throws Exception {
 
         when(turmaService.findTurmaById(turmaBase.getId()))
@@ -92,11 +94,13 @@ public class TurmaControllerTest {
     }
 
     @Test
+    @DisplayName("Teste: TURMA03 - Salvar turma")
     void saveTurmaTest() throws Exception {
 
-        String turmaBaseJson = objectMapper.writeValueAsString(turmaBase);
         when(turmaService.saveTurma(turmaBase))
             .thenReturn(turmaBase);
+
+        String turmaBaseJson = objectMapper.writeValueAsString(turmaBase);
 
         mockMvc.perform(
             post("/turmas/salvar-turma")
@@ -107,10 +111,65 @@ public class TurmaControllerTest {
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$",
-                Matchers.equalTo("Turma criada com sucesso!")));
+            .andExpect(jsonPath("$", Matchers.equalTo("Turma criada com sucesso!")));
 
     }
+
+    @Test
+    @DisplayName("Teste: TURMA04 - Atualizar turma")
+    void updateNomeTurmaTest() throws Exception {
+
+        String nomeTurma = "Turma J1";
+
+        when(turmaService.findTurmaById(turmaBase.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(
+                put("/turmas/update-turma/" + turmaBase.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(nomeTurma)
+                    .accept(MediaType.APPLICATION_JSON)
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Nome da turma alterado com sucesso!")));
+
+    }
+
+    @Test
+    @DisplayName("Teste: TURMA05 - Remover Turma")
+    void deleteTurmaTest() throws Exception {
+
+        when(turmaService.deleteTurma(turmaBase.getId()))
+            .thenReturn(turmaBase);
+
+        mockMvc.perform(delete("/turmas/remove-turma/" + turmaBase.getId()))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$",
+                Matchers.equalTo("Turma removida com sucesso!")));
+
+    }
+
+    @Test
+    @DisplayName("Teste: TURMA06 - Adicionar turma_aluno")
+    void addTurmaAlunoTest() {
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
 
 
 

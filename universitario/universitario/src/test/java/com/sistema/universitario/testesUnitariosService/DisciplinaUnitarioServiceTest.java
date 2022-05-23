@@ -1,6 +1,7 @@
 package com.sistema.universitario.testesUnitariosService;
 
-import com.sistema.universitario.models.*;
+import com.sistema.universitario.models.Disciplina;
+import com.sistema.universitario.models.Professor;
 import com.sistema.universitario.repositories.DisciplinaRepository;
 import com.sistema.universitario.repositories.ProfessorRepository;
 import com.sistema.universitario.services.DisciplinaService;

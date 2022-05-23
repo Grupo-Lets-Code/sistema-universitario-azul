@@ -196,30 +196,6 @@ public class EnderecoServiceTest {
     }
 
     @Test
-    @DisplayName("Teste - EnderecoJaCadastradoException")
-    void enderecoJaCadastradoException(){
-
-        Endereco endereco1 = new Endereco();
-        endereco1.setId(1L);
-        endereco1.setCep("12352650");
-        endereco1.setCidade("São Paulo");
-        endereco1.setRua("Avenida Grande");
-        endereco1.setBairro("Bragança");
-        endereco1.setNum("1250");
-
-        Mockito.when(enderecoRepository.existsById(endereco1.getId()))
-                .thenReturn(true);
-
-        try{
-            enderecoService.saveEndereco(endereco1);
-            Assertions.fail("Deveria dar EnderecoJaCadastradoException");
-        } catch (EnderecoJaCadastradoException e) {
-            Assertions.assertEquals("Endereco ja cadastrado no sistema", e.getMessage());
-        }
-
-    }
-
-    @Test
     @DisplayName("Teste - EnderecoInexistenteException")
     void enderecoInexistenteException(){
 

@@ -149,35 +149,5 @@ public class EnderecoIntegracaoControllerTest {
 
     }
 
-    @Test
-    void testarEnderecoJaCadastradoException(){
-
-        Endereco endereco = new Endereco();
-        Usuario usuario = new Usuario();
-
-        usuario.setEmail("teste2@teste.com");
-        usuario.setPassword("123456");
-
-        usuarioService.save(usuario);
-
-        endereco.setId(1L);
-        endereco.setCep("12352650");
-        endereco.setCidade("Sao Paulo");
-        endereco.setRua("Avenida Grande");
-        endereco.setBairro("Braganca");
-        endereco.setNum("1250");
-        endereco.setUsuario(usuario);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        HttpEntity<Endereco> httpEntity = new HttpEntity<>(endereco, httpHeaders);
-
-        ResponseEntity<String> response = this.restTemplate
-                .exchange("/endereco", HttpMethod.POST, httpEntity, String.class);
-
-        Assertions.assertEquals(409, response.getStatusCodeValue());
-
-
-    }
-
 }
 

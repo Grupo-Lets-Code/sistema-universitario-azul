@@ -1,7 +1,6 @@
 package com.sistema.universitario.services;
 
 import com.sistema.universitario.exceptions.endereco.EnderecoInexistenteException;
-import com.sistema.universitario.exceptions.endereco.EnderecoJaCadastradoException;
 import com.sistema.universitario.models.Endereco;
 import com.sistema.universitario.repositories.EnderecoRepository;
 import org.springframework.stereotype.Service;
@@ -16,16 +15,10 @@ public class EnderecoService {
 
     public EnderecoService(EnderecoRepository enderecoRepository) {this.enderecoRepository = enderecoRepository;}
 
-    public Endereco saveEndereco(Endereco endereco){
-        if (!this.enderecoRepository.existsById(endereco.getId())){
-            return this.enderecoRepository.save(endereco);
-        } else {
-            throw new EnderecoJaCadastradoException();
-        }
-    }
+    public Endereco saveEndereco(Endereco endereco){return enderecoRepository.save(endereco);}
 
     public Endereco updateEndereco(Long id, Endereco endereco){
-        Endereco entidade = this.findEnderecoById(endereco.getId());
+        Endereco entidade = this.findEnderecoById(id);
         entidade.setNum(endereco.getNum());
         entidade.setRua(endereco.getRua());
         entidade.setBairro(endereco.getBairro());
